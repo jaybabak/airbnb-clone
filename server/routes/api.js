@@ -59,7 +59,7 @@ function saveListing(listing, users){
 
       problem = true;
 
-      console.log(err);
+      // console.log(err);
       return problem;
     }else {
 
@@ -91,8 +91,8 @@ router.route('/add').post((req, res) => {
   // res.status(200).send('OK');
   const formResults = validateAddPostForm(req.body);
 
-  const postResults = saveListing(req.body, req.user);
-  console.log(postResults);
+  // const postResults = saveListing(req.body, req.user);
+  // console.log(postResults);
 
   if (!formResults.success) {
     return res.status(400).json({
