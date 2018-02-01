@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # React Passport Example Application
 
 An example application which combines a back-end which stores user data and front-end React.js application which handles user authentication sessions.
@@ -59,3 +60,6 @@ Login page:
 Dashboard which is only accessible after login:
 
 ![Alt Dashboard](/README/dashboard.png?raw=true)
+=======
+# airbnb-clone
+>>>>>>> b15f3393b516c45487cffa9412ee361ac7084fb0
