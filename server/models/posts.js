@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 // define the User model schema
-const PostSchema = new mongoose.Schema({
+const PostySchema = new mongoose.Schema({
 
   uid: String,
   city: { type: String, trim: true, required: true },
@@ -16,12 +16,27 @@ const PostSchema = new mongoose.Schema({
 /**
  * The pre-save hook method.
  */
-PostSchema.pre('save', function saveHook(next) {
+PostySchema.pre('save', function saveHook(next) {
   const post = this;
-  // console.log(this);
+  console.log(this.uid);
+  console.log('------WAS SAVED!');
+
+  // var Posty = mongoose.model('Post', PostSchema);
+
+  // Posty.find({ }, function (err, row) {
+  //   if (err) return err;
+  //   // Prints "Space Ghost is a talk show host".
+  //   console.log(row);
+  //
+  //   // for (var i = 0; i < row.length; i++) {
+  //   //   console.log(row[i]);
+  //   // }
+  //
+  // });
+
   return next();
 });
 
 
 
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Posty', PostySchema);

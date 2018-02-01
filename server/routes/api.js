@@ -1,5 +1,5 @@
 const express = require('express');
-const Post = require('mongoose').model('Post');
+const Posty = require('mongoose').model('Posty');
 const router = new express.Router();
 
 
@@ -51,7 +51,7 @@ function saveListing(listing, users){
 
   // console.log(nodeObject);
 
-  let postObject = new Post(nodeObject);
+  let postObject = new Posty(nodeObject);
 
   var saved = postObject.save(function (err){
 
@@ -59,7 +59,7 @@ function saveListing(listing, users){
 
       problem = true;
 
-      // console.log(err);
+      console.log(err);
       return problem;
     }else {
 
@@ -91,7 +91,7 @@ router.route('/add').post((req, res) => {
   // res.status(200).send('OK');
   const formResults = validateAddPostForm(req.body);
 
-  // const postResults = saveListing(req.body, req.user);
+  const postResults = saveListing(req.body, req.user);
   // console.log(postResults);
 
   if (!formResults.success) {
@@ -114,13 +114,5 @@ router.route('/add').post((req, res) => {
 });
 
 
-
-
-// router.get('/add', (req, res) => {
-//   res.status(200).json({
-//     message: "Test!",
-//     user: req.user
-//   });
-// });
 
 module.exports = router;
