@@ -18,7 +18,7 @@ const PostSchema = new mongoose.Schema({
  */
 PostSchema.pre('save', function saveHook(next) {
   const post = this;
-  console.log(this);
+  // console.log(this);
   return next();
 });
 
