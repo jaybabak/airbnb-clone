@@ -13,7 +13,7 @@ class DashboardPage extends React.Component {
 
     this.state = {
       secretData: '',
-      user: {}
+      user: {},
     };
   }
 
@@ -31,18 +31,22 @@ class DashboardPage extends React.Component {
       if (xhr.status === 200) {
         this.setState({
           secretData: xhr.response.message,
-          user: xhr.response.user
+          user: xhr.response.user,
         });
       }
     });
     xhr.send();
+
+
   }
 
   /**
    * Render the component.
    */
   render() {
-    return (<Dashboard secretData={this.state.secretData} user={this.state.user} />);
+    return (
+      <Dashboard secretData={this.state.secretData} user={this.state.user} />
+    );
   }
 
 }

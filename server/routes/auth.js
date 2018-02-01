@@ -75,6 +75,10 @@ function validateLoginForm(payload) {
   };
 }
 
+//LEFT OFF HERE STUCK TRYING TO SUBMIT FORM
+
+
+
 router.post('/signup', (req, res, next) => {
   const validationResult = validateSignupForm(req.body);
   if (!validationResult.success) {
@@ -148,5 +152,7 @@ router.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
+
+
 
 module.exports = router;
