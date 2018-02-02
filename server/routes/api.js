@@ -5,23 +5,30 @@ const router = new express.Router();
 
 //---Form Validation for Add Post
 function validateAddPostForm(formData) {
+
+//NEED TO ADD addditonal validation for numbers min max etc.....
+//VALIDATION HERE AS WELL BEFORE THE SAVE FUNCTION TO MAKE SURE DB DOESN'T CRASH
+
+
   const errors = {};
   let isFormValid = true;
   let message = '';
 
-  if (!formData || typeof formData.city !== 'string' || formData.city.trim().length === 0) {
+  console.log(formData);
+
+  if (!formData || typeof formData.city !== 'string' || formData.city.trim().length === 0 || !isNaN(formData.city) && typeof formData != 'undefined') {
     isFormValid = false;
     errors.city = 'Please provide a valid city';
   }
 
-  if (!formData || typeof formData.guests !== 'string' || formData.guests.trim().length === 0 || isNaN(formData.guests )) {
+  if (!formData || typeof formData.guests !== 'string' || formData.guests.trim().length === 0 || isNaN(formData.guests) && typeof formData != 'undefined') {
     isFormValid = false;
     errors.guests = 'Please enter a valid number';
   }
 
-  if (!formData || typeof formData.type !== 'string' || formData.type.trim().length === 0 ) {
+  if (!formData || typeof formData.type !== 'string' || formData.type.trim().length === 0 && typeof formData != 'undefined') {
     isFormValid = false;
-    errors.type = 'Cannot leave blank';
+    errors.type = 'Cannot leave type field blank';
   }
 
   if (!isFormValid) {
@@ -49,9 +56,12 @@ function saveListing(listing, users){
     type: listing.type
   };
 
-  // console.log(nodeObject);
+  console.log(nodeObject);
 
   let postObject = new Posty(nodeObject);
+
+
+
 
   var saved = postObject.save(function (err){
 
@@ -76,6 +86,24 @@ function saveListing(listing, users){
 
 }
 
+function getUserLists(theUser) {
+
+  // console.log('---------------------------------');
+  // var allRows = new Array();
+  //
+  // const all = Posty.find({ uid: theUser }, function (err, row) {
+  //   if (err){
+  //     return err
+  //   }
+  //
+  //   allRows = row;
+  //   // allUserListings[0] = "";
+  // });
+  //
+  // return allRows;
+
+}
+
 
 router.get('/dashboard', (req, res) => {
   res.status(200).json({
@@ -85,13 +113,61 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
+router.get('/listings', (req, res) => {
+
+  console.log(req.user._id);
+
+  if(req.user._id != null || req.user._id != ''){
+    // const myLists = getUserLists(req.body.uid);
+    // console.log(myLists);
+    const all = Posty.find({ uid: req.user._id }, function (err, row) {
+      if (err){
+        return err
+      }
+
+      console.log(row);
+
+      res.status(200).json({
+        message: "You're authorized to see this secret message.",
+        user: req.user,
+        data: row
+      });
+
+      // allUserListings[0] = "";
+    });
+
+
+
+
+  }else {
+    res.status(200).json({
+      success: false,
+      message: 'No listings found.',
+    });
+  }
+
+
+
+});
+
+//LEFT OFF HEREE ------------------------------------------
+// creatinG dynamic route for each user to view only his own listings
+
+// router.get('/dashboard', (req, res) => {
+//   res.status(200).json({
+//     message: "You're authorized to see this secret message.",
+//     // user values passed through from auth middleware
+//     user: req.user
+//   });
+// });
+
 router.route('/add').post((req, res) => {
 
   // console.log(req.body);
   // res.status(200).send('OK');
   const formResults = validateAddPostForm(req.body);
 
-  const postResults = saveListing(req.body, req.user);
+  // const postResults = saveListing(req.body, req.user);
   // console.log(postResults);
 
   if (!formResults.success) {
@@ -100,17 +176,18 @@ router.route('/add').post((req, res) => {
       message: formResults.message,
       errors: formResults.errors
     });
+  }else if(formResults.success){
+
+    saveListing(req.body, req.user)
+
+    return res.status(200).json({
+      success: true,
+      message: 'You have successfully added a new listing!',
+      user: req.user,
+      post: req.body,
+    });
   }
 
-  ///ADD LOGIC FOR SAVING TO THE DATABASE HERE BY KEEPING UNIQUE EMAIL ID FOR EVERY POSTS
-  //REORGANIZE THE SCHEMA SO THAT POSTS ARE SEPERATE DOCUMENT TYPE
-
-  return res.status(200).json({
-    success: true,
-    message: 'You have successfully added a new listing!',
-    user: req.user,
-    post: req.body,
-  });
 });
 
 

@@ -90,7 +90,7 @@ class AddPostPage extends React.Component {
         // success
         console.log(xhr3);
 
-      } else {
+      } else if (xhr3.status === 400) {
         // failure
         const errors = xhr3.response.errors ? xhr3.response.errors : {};
         errors.summary = xhr3.response.message;
