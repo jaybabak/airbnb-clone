@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-import OwnListingView from '../containers/OwnListingView.jsx';
 
 const ListingView = ({ user, content }) => (
 <li>

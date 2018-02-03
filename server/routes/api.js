@@ -86,25 +86,6 @@ function saveListing(listing, users){
 
 }
 
-function getUserLists(theUser) {
-
-  // console.log('---------------------------------');
-  // var allRows = new Array();
-  //
-  // const all = Posty.find({ uid: theUser }, function (err, row) {
-  //   if (err){
-  //     return err
-  //   }
-  //
-  //   allRows = row;
-  //   // allUserListings[0] = "";
-  // });
-  //
-  // return allRows;
-
-}
-
-
 router.get('/dashboard', (req, res) => {
   res.status(200).json({
     message: "You're authorized to see this secret message.",
@@ -136,18 +117,12 @@ router.get('/listings', (req, res) => {
       // allUserListings[0] = "";
     });
 
-
-
-
   }else {
     res.status(200).json({
       success: false,
       message: 'No listings found.',
     });
   }
-
-
-
 });
 
 //LEFT OFF HEREE ------------------------------------------

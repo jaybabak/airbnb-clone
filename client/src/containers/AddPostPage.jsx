@@ -89,6 +89,9 @@ class AddPostPage extends React.Component {
       if (xhr3.status === 200) {
         // success
         console.log(xhr3);
+        this.setState({
+          successMsg: xhr3.response
+        });
 
       } else if (xhr3.status === 400) {
         // failure
@@ -133,7 +136,11 @@ class AddPostPage extends React.Component {
    * Render the component.
    */
   render() {
-    return (<AddPost onSubmit={this.addPosts} onChange={this.changeUser} secretData={this.state.secretData} user={this.state.user} />);
+    return (
+      <div>
+        <AddPost onSubmit={this.addPosts} onChange={this.changeUser} secretData={this.state.secretData} user={this.state.user} errors={this.state.errors} success={this.state.successMsg}/>
+      </div>
+    );
   }
 }
 
