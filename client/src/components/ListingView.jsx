@@ -4,34 +4,28 @@ import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
 import OwnListingView from '../containers/OwnListingView.jsx';
 
 const ListingView = ({ user, content }) => (
-<div>
-  <Card className="container">
-    <CardTitle
-      title="All Your Listings"
-      subtitle="Here's a list of all the listings you for AiroCheap"
-    />
-  </Card>
+<li>
+
+
+{/*
+  {this.state.dataRow.map((arrs) => <li key={arrs._id}>{arrs.city}</li> )} */}
 
 
 
-
-    <Card className="container row">
+    {/* <Card className="container row">
       <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>
-        UID: <strong>{content}</strong>!<br />
-      </CardText>
-      {/* <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>
-        City: <strong>{user.name}</strong>!<br />
+        City: <strong>{content.city}</strong>!<br />
       </CardText>
       <CardText style={{ fontSize: '16px', color: 'grey' }}>
-        Guests: <strong>{user.name}</strong>!<br />
+        Guests: <strong>{content.guets}</strong>!<br />
       </CardText>
       <CardText style={{ fontSize: '16px', color: 'brown' }}>
-        Type: <strong>{user.name}</strong>!<br />
-      </CardText> */}
-    </Card>
+        Type: <strong>{content.type}</strong>!<br />
+      </CardText>
+    </Card> */}
 
 
-</div>
+</li>
 );
 
 export default ListingView;

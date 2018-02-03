@@ -1,7 +1,9 @@
 import React from 'react';
+import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
 import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 import ListingView from '../components/ListingView.jsx';
+
 
 
 class DashboardPage extends React.Component {
@@ -24,6 +26,8 @@ class DashboardPage extends React.Component {
    * This method will be executed after initial rendering.
    */
   componentDidMount() {
+
+    var arr = [];
 
     let grabUser = new Promise((resolve, reject) => {
 
@@ -73,11 +77,11 @@ class DashboardPage extends React.Component {
             dataRow: getAll.response.data
           });
 
-          console.log(this.state.dataRow);
+          // console.log(this.state.dataRow);
 
           var allRows = this.state.dataRow;
 
-          var arr = [];
+
 
           allRows.map(function(listing){
 
@@ -86,9 +90,9 @@ class DashboardPage extends React.Component {
 
           });
 
-          for (var j=0; j< arr.length; j++){
-            console.log(arr[j]);
-          }
+          // for (var j=0; j< arr.length; j++){
+          //   console.log(arr[j]);
+          // }
           console.log(arr);
 
         }
@@ -110,7 +114,33 @@ class DashboardPage extends React.Component {
 
       <div>
         <Dashboard secretData={this.state.secretData} user={this.state.user} />
-        <ListingView user={this.state.user} content='sddf' />
+
+        <Card className="container">
+          <CardTitle
+            title="All Your Listings"
+            subtitle="Here's a list of all the listings you for AiroCheap"
+          />
+        </Card>
+
+        <ListingView user={this.state.user} content={this.state.user} />
+
+        <div className="listing-wrapper">
+          {this.state.dataRow.map((arrs) =>
+            <div key={arrs._id}>
+              <Card className="container row">
+                <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>
+                  City: <strong>{arrs.city}</strong><br />
+                </CardText>
+                <CardText style={{ fontSize: '16px', color: 'grey' }}>
+                  Guests: <strong>{arrs.guests}</strong><br />
+                </CardText>
+                <CardText style={{ fontSize: '16px', color: 'brown' }}>
+                  Type: <strong>{arrs.type}</strong><br />
+                </CardText>
+              </Card>
+            </div> )}
+        </div>
+
       </div>
     );
   }

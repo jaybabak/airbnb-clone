@@ -15462,6 +15462,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Card = __webpack_require__(58);
+
 var _Auth = __webpack_require__(39);
 
 var _Auth2 = _interopRequireDefault(_Auth);
@@ -15512,6 +15514,8 @@ var DashboardPage = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var arr = [];
+
       var grabUser = new Promise(function (resolve, reject) {
 
         var xhr = new XMLHttpRequest();
@@ -15555,20 +15559,18 @@ var DashboardPage = function (_React$Component) {
               dataRow: getAll.response.data
             });
 
-            console.log(_this2.state.dataRow);
+            // console.log(this.state.dataRow);
 
             var allRows = _this2.state.dataRow;
-
-            var arr = [];
 
             allRows.map(function (listing) {
 
               arr.push(listing);
             });
 
-            for (var j = 0; j < arr.length; j++) {
-              console.log(arr[j]);
-            }
+            // for (var j=0; j< arr.length; j++){
+            //   console.log(arr[j]);
+            // }
             console.log(arr);
           }
         });
@@ -15588,7 +15590,62 @@ var DashboardPage = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(_Dashboard2.default, { secretData: this.state.secretData, user: this.state.user }),
-        _react2.default.createElement(_ListingView2.default, { user: this.state.user, content: 'sddf' })
+        _react2.default.createElement(
+          _Card.Card,
+          { className: 'container' },
+          _react2.default.createElement(_Card.CardTitle, {
+            title: 'All Your Listings',
+            subtitle: 'Here\'s a list of all the listings you for AiroCheap'
+          })
+        ),
+        _react2.default.createElement(_ListingView2.default, { user: this.state.user, content: this.state.user }),
+        _react2.default.createElement(
+          'div',
+          { className: 'listing-wrapper' },
+          this.state.dataRow.map(function (arrs) {
+            return _react2.default.createElement(
+              'div',
+              { key: arrs._id },
+              _react2.default.createElement(
+                _Card.Card,
+                { className: 'container row' },
+                _react2.default.createElement(
+                  _Card.CardText,
+                  { style: { fontSize: '16px', color: 'cornflowerblue' } },
+                  'City: ',
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    arrs.city
+                  ),
+                  _react2.default.createElement('br', null)
+                ),
+                _react2.default.createElement(
+                  _Card.CardText,
+                  { style: { fontSize: '16px', color: 'grey' } },
+                  'Guests: ',
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    arrs.guests
+                  ),
+                  _react2.default.createElement('br', null)
+                ),
+                _react2.default.createElement(
+                  _Card.CardText,
+                  { style: { fontSize: '16px', color: 'brown' } },
+                  'Type: ',
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    arrs.type
+                  ),
+                  _react2.default.createElement('br', null)
+                )
+              )
+            );
+          })
+        )
       );
     }
   }]);
@@ -42314,34 +42371,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ListingView = function ListingView(_ref) {
   var user = _ref.user,
       content = _ref.content;
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      _Card.Card,
-      { className: 'container' },
-      _react2.default.createElement(_Card.CardTitle, {
-        title: 'All Your Listings',
-        subtitle: 'Here\'s a list of all the listings you for AiroCheap'
-      })
-    ),
-    _react2.default.createElement(
-      _Card.Card,
-      { className: 'container row' },
-      _react2.default.createElement(
-        _Card.CardText,
-        { style: { fontSize: '16px', color: 'cornflowerblue' } },
-        'UID: ',
-        _react2.default.createElement(
-          'strong',
-          null,
-          content
-        ),
-        '!',
-        _react2.default.createElement('br', null)
-      )
-    )
-  );
+  return _react2.default.createElement('li', null);
 };
 
 exports.default = ListingView;
