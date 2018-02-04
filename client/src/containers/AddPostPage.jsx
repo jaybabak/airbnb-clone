@@ -16,7 +16,6 @@ class AddPostPage extends React.Component {
     this.state = {
       secretData: '',
       user: {},
-      node: '',
       successMsg: '',
       errors: {}
     };

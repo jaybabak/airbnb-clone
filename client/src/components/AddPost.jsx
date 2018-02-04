@@ -4,6 +4,8 @@ import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 
 const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, success }) => (
@@ -17,7 +19,8 @@ const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, succes
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Create Your New Listing</h2>
 
-      {success.message}
+      <CardText style={{ fontSize: '16px', color: 'green' }}><strong>{success.message}</strong></CardText>
+
 
       <div className="field-line">
         <TextField
@@ -25,7 +28,7 @@ const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, succes
           name="city"
           onChange={onChange}
           errorText={errors.city}
-          value={user.city}
+          // value={user.city}
         />
       </div>
 
@@ -35,7 +38,7 @@ const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, succes
           name="guests"
           onChange={onChange}
           errorText={errors.guests}
-          value={user.guests}
+          // value={user.guests}
         />
       </div>
 
@@ -45,8 +48,20 @@ const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, succes
           name="type"
           onChange={onChange}
           errorText={errors.type}
-          value={user.type}
+          // value={user.type}
         />
+
+        {/* <SelectField
+          floatingLabelText="Space Type"
+          value={user.type}
+          onChange={this.handleChange}
+        >
+          <MenuItem value={null} primaryText="" />
+          <MenuItem value={false} primaryText="No" />
+          <MenuItem value={true} primaryText="Yes" />
+        </SelectField> */}
+
+
       </div>
 
       <div className="button-line">
