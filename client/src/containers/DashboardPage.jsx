@@ -3,6 +3,7 @@ import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
 import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 import ListingView from '../components/ListingView.jsx';
+import PostImage from '../containers/PostImage.jsx';
 
 
 
@@ -128,6 +129,7 @@ class DashboardPage extends React.Component {
           {this.state.dataRow.map((arrs) =>
             <div key={arrs._id}>
               <Card className="container row">
+                <PostImage/>
                 <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>
                   City: <strong>{arrs.city}</strong><br />
                 </CardText>
