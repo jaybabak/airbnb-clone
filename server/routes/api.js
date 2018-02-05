@@ -26,9 +26,9 @@ function validateAddPostForm(formData) {
     errors.guests = 'Please enter a valid number';
   }
 
-  if (!formData || typeof formData.type !== 'string' || formData.type.trim().length === 0 && typeof formData != 'undefined') {
+  if (!formData || typeof formData.type !== 'string' || formData.type.trim().length === 0 && typeof formData != 'undefined' || formData.type == 'null') {
     isFormValid = false;
-    errors.type = 'Cannot leave type field blank';
+    errors.type = 'Must select an option';
   }
 
   if (!isFormValid) {
