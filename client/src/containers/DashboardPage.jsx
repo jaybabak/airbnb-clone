@@ -4,6 +4,8 @@ import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 import ListingView from '../components/ListingView.jsx';
 import PostImage from '../containers/PostImage.jsx';
+import { Link } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
 
 
 
@@ -55,7 +57,7 @@ class DashboardPage extends React.Component {
 
     grabUser.then((success) => {
 
-      console.log(success);
+      // console.log(success);
       const uid = encodeURIComponent(success);
 
       const formData = `uid=${uid}`;
@@ -123,22 +125,23 @@ class DashboardPage extends React.Component {
           />
         </Card>
 
-        <ListingView user={this.state.user} content={this.state.user} />
+        {/* <ListingView user={this.state.user} content={this.state.user} /> */}
 
         <div className="listing-wrapper">
           {this.state.dataRow.map((arrs) =>
             <div key={arrs._id}>
-              <Card className="container row">
+              <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' }}>
                 <PostImage/>
-                <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>
+                <CardText style={{ fontSize: '16px', color: 'black' }}>
                   City: <strong>{arrs.city}</strong><br />
                 </CardText>
-                <CardText style={{ fontSize: '16px', color: 'grey' }}>
+                <CardText style={{ fontSize: '16px', color: 'black' }}>
                   Guests: <strong>{arrs.guests}</strong><br />
                 </CardText>
-                <CardText style={{ fontSize: '16px', color: 'brown' }}>
+                <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
                   Type: <strong>{arrs.type}</strong><br />
                 </CardText>
+              <Link to={'/listing/' + arrs._id}><FlatButton style={{ backgroundColor: '#1B4159', color: 'white' }} label="View Listing" /></Link>
               </Card>
             </div> )}
         </div>

@@ -125,6 +125,41 @@ router.get('/listings', (req, res) => {
   }
 });
 
+
+router.get('/listing/:id', (req, res) => {
+
+  // console.log(req.user);
+  var postID = req.url.split('/');
+
+
+  if(postID !== 'null'){
+
+    console.log(postID[2]);
+    // const myLists = getUserLists(req.body.uid);
+    // console.log(myLists);
+    const all = Posty.find({ _id: postID[2] }, function (err, item) {
+      if (err){
+        return err
+      }
+    //
+      console.log(item);
+    //
+      res.status(200).json({
+        message: "You're authorized to see this secret message.",
+        postData: item
+      });
+    //
+    //   // allUserListings[0] = "";
+    });
+
+  }else {
+    res.status(200).json({
+      success: false,
+      message: 'No listing found.',
+    });
+  }
+});
+
 //LEFT OFF HEREE ------------------------------------------
 // creatinG dynamic route for each user to view only his own listings
 

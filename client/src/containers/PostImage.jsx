@@ -39,7 +39,7 @@ class PostImage extends React.Component {
     xhrImg.addEventListener('load', () => {
       if (xhrImg.status === 200) {
         // success
-        console.log(xhrImg);
+        // console.log(xhrImg);
 
         this.setState({
           img: xhrImg.response,

@@ -18,6 +18,7 @@ import LoginPage from './containers/LoginPage.jsx';
 import LogoutFunction from './containers/LogoutFunction.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
+import ListingPage from './containers/ListingPage.jsx';
 import AddPostPage from './containers/AddPostPage.jsx';
 import Auth from './modules/Auth';
 
@@ -88,6 +89,7 @@ class Main extends Component {
                   <Link to="/dashboard">Dashboard</Link>
                   <Link to="/add-post">Add Post</Link>
                   <Link to="/logout">Log out</Link>
+                  <Link to="/listing/:id">Listing</Link>
                 </div>
               ) : (
                 <div className="top-bar-right">
@@ -101,6 +103,7 @@ class Main extends Component {
             <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
             <PrivateRoute path="/dashboard" component={DashboardPage}/>
             <PrivateRoute path="/add-post" component={AddPostPage}/>
+            <PrivateRoute path="/listing/:id" component={ListingPage}/>
             <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
             <LoggedOutRoute path="/signup" component={SignUpPage}/>
             <Route path="/logout" component={LogoutFunction}/>
