@@ -2,7 +2,6 @@ import React from 'react';
 import Auth from '../modules/Auth';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
-// import Unsplash from 'unsplash-js';
 
 class PostImage extends React.Component {
 
@@ -11,16 +10,12 @@ class PostImage extends React.Component {
    */
   constructor(props) {
     super(props);
-
-    // const unsplash = new Unsplash({
-    //   applicationId: "2248ae5ea69bc1e72c5bdc6372c148ef33ae355aa285ec2818b4d43cfd549da9",
-    //   secret: "877d669e82dec89f81a04c69fd595f9e47a165227bcb3e0e977edb513e2adb86",
-    // });
-
       // callbackUrl: "http://localhost:3000"
 
     this.state = {
-      imageSrc: ''
+      img: {},
+      src: '',
+      alt: '',
     };
 
     // this.changeUser = this.changeUser.bind(this);
@@ -35,33 +30,33 @@ class PostImage extends React.Component {
    */
   componentDidMount() {
 
-    // var randomPhoto = unsplash.getRandomPhoto({
-    //   width: '1920',
-    //   height: '1080',
-    // }).then(toJson).then(json => {
-    //
-    //   console.log(json);
-    //
-    // });
+    console.log('tests');
 
-    // console.log(randomPhoto);
+    const xhrImg = new XMLHttpRequest();
+    xhrImg.open('get', 'https://api.unsplash.com/photos/random/');
+    xhrImg.setRequestHeader('Authorization', 'Client-ID 2248ae5ea69bc1e72c5bdc6372c148ef33ae355aa285ec2818b4d43cfd549da9');
+    xhrImg.responseType = 'json';
+    xhrImg.addEventListener('load', () => {
+      if (xhrImg.status === 200) {
+        // success
+        console.log(xhrImg);
 
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('get', '/api/dashboard');
-    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // // set the authorization HTTP header
-    // xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    // xhr.responseType = 'json';
-    // xhr.addEventListener('load', () => {
-    //   if (xhr.status === 200) {
-    //     this.setState({
-    //       user: xhr.response.user,
-    //       secretData: xhr.response.message,
-    //     });
-    //   }
-    // });
-    // xhr.send();
+        this.setState({
+          img: xhrImg.response,
+          src: xhrImg.response.urls.regular,
+          author: xhrImg.response.user.name,
+        });
 
+      } else if (xhrImg.status === 400) {
+        // failure
+        // const errors = xhrImg.response.errors ? xhrImg.response.errors : {};
+        // errors.summary = xhrImg.response.message;
+        //
+        // console.log(errors);
+
+      }
+    });
+    xhrImg.send();
   }
 
 
@@ -70,10 +65,11 @@ class PostImage extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div style={{ height: '300px', overflow: 'hidden', position: 'relative' }}>
         <CardText style={{ fontSize: '16px', color: 'brown' }}>
-          Test Image
+          <img style={{ width: '100%' }} className='row-image' src={this.state.src}/>
         </CardText>
+          <div style={{ position: 'absolute', bottom: '0', left: '15px', backgroundColor: 'white', color: 'black', padding: '20px' }} className='row-author'>Photo by: {this.state.author}</div>
       </div>
     );
   }

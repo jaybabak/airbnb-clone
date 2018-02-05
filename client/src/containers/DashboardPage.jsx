@@ -118,7 +118,7 @@ class DashboardPage extends React.Component {
 
         <Card className="container">
           <CardTitle
-            title="All Your Listings"
+            title="All Listings - Photos by unsplash"
             subtitle="Here's a list of all the listings you for AiroCheap"
           />
         </Card>

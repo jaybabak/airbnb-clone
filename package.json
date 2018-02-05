@@ -26,6 +26,7 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
+    "unsplash-js": "^4.8.0",
     "validator": "^7.0.0"
   },
   "devDependencies": {
