@@ -89,7 +89,6 @@ class Main extends Component {
                   <Link to="/dashboard">Dashboard</Link>
                   <Link to="/add-post">Add Post</Link>
                   <Link to="/logout">Log out</Link>
-                  <Link to="/listing/:id">Listing</Link>
                 </div>
               ) : (
                 <div className="top-bar-right">

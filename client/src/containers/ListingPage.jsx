@@ -58,6 +58,7 @@ class ListingPage extends React.Component {
     });
   }
 
+
   /**
    * Render the component.
    */
@@ -71,31 +72,18 @@ class ListingPage extends React.Component {
             subtitle={this.state.data.type}
           />
           <PostImage/>
+
+
           <CardTitle
-            title={this.state.data.guests}
+            title='DETAILS'
           />
+          <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
+            # of guests allowed: <strong>{this.state.data.guests}</strong><br />
+          </CardText>
+
         </Card>
 
         {/* <ListingView user={this.state.user} content={this.state.user} /> */}
-
-        <div className="page-wrapper">
-          {/* {this.state.dataRow.map((arrs) =>
-            <div key={arrs._id}>
-              <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' }}>
-                <PostImage/>
-                <CardText style={{ fontSize: '16px', color: 'black' }}>
-                  City: <strong>{arrs.city}</strong><br />
-                </CardText>
-                <CardText style={{ fontSize: '16px', color: 'black' }}>
-                  Guests: <strong>{arrs.guests}</strong><br />
-                </CardText>
-                <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
-                  Type: <strong>{arrs.type}</strong><br />
-                </CardText>
-              <Link to={'/signup'}><FlatButton style={{ backgroundColor: '#1B4159', color: 'white' }} label="View Listing" /></Link>
-              </Card>
-            </div> )} */}
-        </div>
 
       </div>
     );

@@ -16,6 +16,8 @@ class PostImage extends React.Component {
       img: {},
       src: '',
       alt: '',
+      user: {},
+      link: ''
     };
 
     // this.changeUser = this.changeUser.bind(this);
@@ -39,13 +41,17 @@ class PostImage extends React.Component {
     xhrImg.addEventListener('load', () => {
       if (xhrImg.status === 200) {
         // success
-        // console.log(xhrImg);
+        console.log(xhrImg);
 
         this.setState({
           img: xhrImg.response,
           src: xhrImg.response.urls.regular,
           author: xhrImg.response.user.name,
+          user: xhrImg.response.user,
+          link: xhrImg.response.user.links.html
         });
+
+        // console.log(this.state.user);
 
       } else if (xhrImg.status === 400) {
         // failure
@@ -69,7 +75,8 @@ class PostImage extends React.Component {
         <CardText style={{ fontSize: '16px', color: 'brown' }}>
           <img style={{ width: '100%' }} className='row-image' src={this.state.src}/>
         </CardText>
-          <div style={{ position: 'absolute', bottom: '0', left: '15px', backgroundColor: 'white', color: 'black', padding: '20px' }} className='row-author'>Photo by: {this.state.author}</div>
+          <div style={{ position: 'absolute', bottom: '0', left: '15px', backgroundColor: 'white', color: 'black', padding: '20px' }} className='row-author'>Photo by
+          <a style={{ textDecoration: 'underline', color: 'cornflowerblue' }} href={this.state.link + '?utm_source=airbnb_clone&utm_medium=referral'}> {this.state.author}</a></div>
       </div>
     );
   }

@@ -120,7 +120,7 @@ class DashboardPage extends React.Component {
 
         <Card className="container">
           <CardTitle
-            title="All Listings - Photos by unsplash"
+            title="All Listings - Photos by Unsplash"
             subtitle="Here's a list of all the listings you for AiroCheap"
           />
         </Card>
@@ -135,9 +135,9 @@ class DashboardPage extends React.Component {
                 <CardText style={{ fontSize: '16px', color: 'black' }}>
                   City: <strong>{arrs.city}</strong><br />
                 </CardText>
-                <CardText style={{ fontSize: '16px', color: 'black' }}>
+                {/* <CardText style={{ fontSize: '16px', color: 'black' }}>
                   Guests: <strong>{arrs.guests}</strong><br />
-                </CardText>
+                </CardText> */}
                 <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
                   Type: <strong>{arrs.type}</strong><br />
                 </CardText>
