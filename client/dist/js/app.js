@@ -17645,9 +17645,7 @@ var Main = function (_Component) {
                 )
               )
             ),
-            _react2.default.createElement(PropsRoute, { exact: true, path: '/', component: _HomePage2.default, toggleAuthenticateStatus: function toggleAuthenticateStatus() {
-                return _this2.toggleAuthenticateStatus();
-              } }),
+            _react2.default.createElement(PropsRoute, { exact: true, path: '/', component: _HomePage2.default }),
             _react2.default.createElement(PrivateRoute, { path: '/dashboard', component: _DashboardPage2.default }),
             _react2.default.createElement(PrivateRoute, { path: '/add-post', component: _AddPostPage2.default }),
             _react2.default.createElement(PrivateRoute, { path: '/listing/:id', component: _ListingPage2.default }),
@@ -17963,7 +17961,7 @@ var HomePage = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // update authenticated state on logout
-      this.props.toggleAuthenticateStatus();
+      // this.props.toggleAuthenticateStatus()
     }
   }, {
     key: 'render',
@@ -18622,8 +18620,8 @@ var DashboardPage = function (_React$Component) {
           _Card.Card,
           { className: 'container' },
           _react2.default.createElement(_Card.CardTitle, {
-            title: 'All Listings - Photos by Unsplash',
-            subtitle: 'Here\'s a list of all the listings you for AiroCheap'
+            title: 'My Listings',
+            subtitle: 'Here\'s a list of all the listings you have created on Airbnc'
           })
         ),
         _react2.default.createElement(

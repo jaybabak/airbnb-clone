@@ -120,8 +120,8 @@ class DashboardPage extends React.Component {
 
         <Card className="container">
           <CardTitle
-            title="All Listings - Photos by Unsplash"
-            subtitle="Here's a list of all the listings you for AiroCheap"
+            title="My Listings"
+            subtitle="Here's a list of all the listings you have created on Airbnc"
           />
         </Card>
 

@@ -99,7 +99,8 @@ class Main extends Component {
 
             </div>
 
-            <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
+            <PropsRoute exact path="/" component={HomePage} />
+            {/* <PropsRoute exact path="/" component={HomePage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} /> */}
             <PrivateRoute path="/dashboard" component={DashboardPage}/>
             <PrivateRoute path="/add-post" component={AddPostPage}/>
             <PrivateRoute path="/listing/:id" component={ListingPage}/>
