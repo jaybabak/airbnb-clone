@@ -32,7 +32,7 @@ class PostImage extends React.Component {
    */
   componentDidMount() {
 
-    console.log('tests');
+    // console.log('tests');
 
     const xhrImg = new XMLHttpRequest();
     xhrImg.open('get', 'https://api.unsplash.com/photos/random/');
@@ -41,7 +41,7 @@ class PostImage extends React.Component {
     xhrImg.addEventListener('load', () => {
       if (xhrImg.status === 200) {
         // success
-        console.log(xhrImg);
+        // console.log(xhrImg);
 
         this.setState({
           img: xhrImg.response,

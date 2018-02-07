@@ -19,7 +19,7 @@ class ListingPage extends React.Component {
     this.state = {
       secretData: '',
       user: {},
-      data: {}
+      dataRow: {}
     };
   }
 
@@ -34,7 +34,7 @@ class ListingPage extends React.Component {
 
       // console.log(window.location.href);
       var pid = window.location.href.split('/');
-      // console.log(pid[4]);
+      console.log(pid[4]);
 
       const xhr = new XMLHttpRequest();
       xhr.open('get', '/api/listing/' + pid[4]);
@@ -44,7 +44,7 @@ class ListingPage extends React.Component {
       xhr.responseType = 'json';
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
-          // console.log(xhr.response);
+          console.log(xhr.response);
 
           this.setState({
             data: xhr.response.postData[0],

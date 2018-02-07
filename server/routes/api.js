@@ -96,7 +96,7 @@ router.get('/dashboard', (req, res) => {
 
 router.get('/listings', (req, res) => {
 
-  console.log(req.user._id);
+  // console.log(req.user._id);
 
   if(req.user._id != null || req.user._id != ''){
     // const myLists = getUserLists(req.body.uid);
@@ -106,7 +106,7 @@ router.get('/listings', (req, res) => {
         return err
       }
 
-      console.log(row);
+      // console.log(row);
 
       res.status(200).json({
         message: "You're authorized to see this secret message.",
@@ -129,6 +129,7 @@ router.get('/listings', (req, res) => {
 router.get('/listing/:id', (req, res) => {
 
   // console.log(req.user);
+  console.log(req);
   var postID = req.url.split('/');
 
 
@@ -159,6 +160,39 @@ router.get('/listing/:id', (req, res) => {
     });
   }
 });
+
+
+
+router.get('/views/random', (req, res) => {
+
+  // console.log(req.user._id);
+
+  if(req != null){
+    // const myLists = getUserLists(req.body.uid);
+    // console.log(myLists);
+    const viewsRandom = Posty.find({}, function (err, row) {
+      if (err){
+        return err
+      }
+
+      // console.log(row);
+
+      res.status(200).json({
+        message: "You're authorized to see this secret message.",
+        data: row
+      });
+
+      // allUserListings[0] = "";
+    }).limit(25);
+
+  }else {
+    res.status(200).json({
+      success: false,
+      message: 'No listings found.',
+    });
+  }
+});
+
 
 //LEFT OFF HEREE ------------------------------------------
 // creatinG dynamic route for each user to view only his own listings

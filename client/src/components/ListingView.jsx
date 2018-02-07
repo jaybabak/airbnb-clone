@@ -1,30 +1,86 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
+import Auth from '../modules/Auth';
+import PostImage from '../containers/PostImage.jsx';
+import { Link } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
 
-const ListingView = ({ user, content }) => (
-<li>
+class ListingView extends React.Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      data: [],
+      other: ''
+    }
+
+  }
+
+  componentDidMount() {
+
+    // var arr = [];
+    //
+    let grabPost = new Promise((resolve, reject) => {
+
+      // console.log(window.location.href);
+      // var pid = window.location.href.split('/');
+      // console.log(pid[4]);
+
+      const lvr = new XMLHttpRequest();
+      lvr.open('get', '/api/views/random');
+      lvr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // set the authorization HTTP header
+      lvr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+      lvr.responseType = 'json';
+      lvr.addEventListener('load', () => {
+        if (lvr.status === 200) {
+          // console.log(lvr.response);
+
+          this.setState({
+            data: lvr.response.data,
+          });
+          // resolve(this.state.user._id);
+          // console.log(this.state.data);
+        }
+      });
+      lvr.send();
+
+      resolve()
+
+    });
 
 
-{/*
-  {this.state.dataRow.map((arrs) => <li key={arrs._id}>{arrs.city}</li> )} */}
 
 
+  }
 
-    {/* <Card className="container row">
-      <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>
-        City: <strong>{content.city}</strong>!<br />
-      </CardText>
-      <CardText style={{ fontSize: '16px', color: 'grey' }}>
-        Guests: <strong>{content.guets}</strong>!<br />
-      </CardText>
-      <CardText style={{ fontSize: '16px', color: 'brown' }}>
-        Type: <strong>{content.type}</strong>!<br />
-      </CardText>
-    </Card> */}
+  render() {
+    return (
+      <div>
+        <Card className="container">
+          <CardTitle title="The Latest Listings From Around The Globe" subtitle="Find a place from anywhere." />
+        </Card>
 
+      {this.state.data.map((arrs) => <div key={arrs._id}>
+          <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' }}>
+            <PostImage/>
+            <CardText style={{ fontSize: '16px', color: 'black' }}>
+              City: <strong>{arrs.city}</strong><br />
+            </CardText>
+            <CardText style={{ fontSize: '16px', color: 'black' }}>
+              Guests: <strong>{arrs.guests}</strong><br />
+            </CardText>
+            <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
+              Type: <strong>{arrs.type}</strong><br />
+            </CardText>
+          <Link to={'/listing/' + arrs._id}><FlatButton style={{ backgroundColor: '#1B4159', color: 'white' }} label="View Listing" /></Link>
+          </Card>
+        </div> )}
 
-</li>
-);
+    </div>
+    )
+  }
+};
 
 export default ListingView;
