@@ -18736,7 +18736,7 @@ var ListingPage = function (_React$Component) {
     _this.state = {
       secretData: '',
       user: {},
-      dataRow: {}
+      data: {}
     };
     return _this;
   }

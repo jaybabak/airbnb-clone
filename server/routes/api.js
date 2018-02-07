@@ -154,7 +154,7 @@ router.get('/listing/:id', (req, res) => {
     });
 
   }else {
-    res.status(400).json({
+    res.status(200).json({
       success: false,
       message: 'No listing found.',
     });

@@ -19,7 +19,7 @@ class ListingPage extends React.Component {
     this.state = {
       secretData: '',
       user: {},
-      dataRow: {}
+      data: {}
     };
   }
 
