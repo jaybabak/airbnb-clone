@@ -56,17 +56,31 @@ function saveListing(listing, users){
 
   // console.log(users);
 
+  //  LEFT OFF HEREEEEEEE --------
+
   let nodeObject = {};
   let problem = false;
+
+
+  console.log(listing.to);
+  // console.log(new Date(listing.to));
+
+  const from = new Date(listing.from);
+  const to = new Date(listing.to);
+  console.log(from + '////' + to)
 
   nodeObject = {
     uid: users._id,
     city: listing.city,
     guests: listing.guests,
-    type: listing.type
+    type: listing.type,
+    available: {
+      from: from,
+      to: to,
+    }
   };
 
-  // console.log(nodeObject);
+  console.log(nodeObject);
 
   let postObject = new Posty(nodeObject);
 
@@ -89,6 +103,17 @@ function saveListing(listing, users){
     }
 
   });
+
+  //code to delete all documents in a collection
+  // Posty.remove({}, function(err){
+  //
+  //   if(err){
+  //     console.log(err);
+  //   }else {
+  //     console.log('------------------------ALL DOCUMENTS REMOVED FROM COLLECTION')
+  //   }
+  //
+  // });
 
   return problem;
 
@@ -116,7 +141,7 @@ router.get('/listings', (req, res) => {
         return err
       }
 
-      // console.log(row);
+      console.log(row);
 
       res.status(200).json({
         message: "You're authorized to see this secret message.",
@@ -171,6 +196,40 @@ router.get('/listing/:id', (req, res) => {
   }
 });
 
+router.get('/listing/:id/book', (req, res) => {
+
+  // console.log(req.user);
+  console.log(req);
+  // var postID = req.url.split('/');
+
+  // if(postID !== 'null'){
+  //
+  //   // console.log(postID[2]);
+  //   // const myLists = getUserLists(req.body.uid);
+  //   // console.log(myLists);
+  //   const all = Posty.find({ _id: postID[2] }, function (err, item) {
+  //     if (err){
+  //       return err
+  //     }
+  //   //
+  //     // console.log(item);
+  //   //
+  //     res.status(200).json({
+  //       message: "You're authorized to see this secret message.",
+  //       postData: item
+  //     });
+  //   //
+  //   //   // allUserListings[0] = "";
+  //   });
+  //
+  // }else {
+  //   res.status(200).json({
+  //     success: false,
+  //     message: 'No listing found.',
+  //   });
+  // }
+});
+
 
 
 router.get('/views/random', (req, res) => {
@@ -217,7 +276,7 @@ router.get('/views/random', (req, res) => {
 
 router.route('/add').post((req, res) => {
 
-  console.log(req.body);
+  // console.log(req.body);
   // res.status(200).send('OK');
   const formResults = validateAddPostForm(req.body);
 

@@ -55,8 +55,8 @@ const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, succes
         <div className="field-line">
           Dates you would like to rent your place out for:
         </div>
-        <DatePicker hintText="Available From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to}/>
-        <DatePicker hintText="Available To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from}/>
+        <DatePicker hintText="Available From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to} mode="landscape" autoOk={true}/>
+        <DatePicker hintText="Available To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from} mode="landscape" autoOk={true}/>
 
         {/* <SelectField
           floatingLabelText="Space Type"

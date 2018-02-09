@@ -17813,8 +17813,8 @@ var AddPost = function AddPost(_ref) {
           { className: 'field-line' },
           'Dates you would like to rent your place out for:'
         ),
-        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to }),
-        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from })
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to, mode: 'landscape', autoOk: true }),
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from, mode: 'landscape', autoOk: true })
       ),
       _react2.default.createElement(
         'div',
@@ -18366,15 +18366,6 @@ var AddPostPage = function (_React$Component) {
         }
       });
       xhr.send();
-
-      // const todays = new Date('DD-MM-YYYY');
-      //
-
-      //
-      // this.setState({
-      //   todaysDate: today
-      // });
-      // // console.log(this.state.todaysDate);
     }
   }, {
     key: 'formatDate',
@@ -18393,7 +18384,7 @@ var AddPostPage = function (_React$Component) {
       if (mm < 10) {
         mm = '0' + mm;
       }
-      return ev = dd + '/' + mm + '/' + yyyy;
+      return ev = mm + '-' + dd + '-' + yyyy;
       // console.log(today);
     }
 
@@ -18709,6 +18700,19 @@ var DashboardPage = function (_React$Component) {
               _react2.default.createElement(
                 _Card.Card,
                 { className: 'container row', style: { backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' } },
+                _react2.default.createElement(
+                  'div',
+                  { style: { fontSize: '20px', color: 'green', textAlign: 'left', marginLeft: '25px', paddingTop: '20px' } },
+                  'Available from: ',
+                  arrs.available.from
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { style: { fontSize: '20px', color: 'green', textAlign: 'left', marginLeft: '25px', paddingTop: '20px' } },
+                  'Available from: ',
+                  arrs.available.to
+                ),
+                _react2.default.createElement(_PostImage2.default, null),
                 _react2.default.createElement(
                   _Card.CardText,
                   { style: { fontSize: '16px', color: 'black' } },

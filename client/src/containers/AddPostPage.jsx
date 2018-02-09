@@ -50,15 +50,6 @@ class AddPostPage extends React.Component {
     });
     xhr.send();
 
-    // const todays = new Date('DD-MM-YYYY');
-    //
-
-    //
-    // this.setState({
-    //   todaysDate: today
-    // });
-    // // console.log(this.state.todaysDate);
-
   }
 
 
@@ -77,7 +68,7 @@ class AddPostPage extends React.Component {
     if(mm<10){
         mm='0'+mm;
     }
-    return ev = dd+'/'+mm+'/'+yyyy;
+    return ev = mm+'-'+dd+'-'+yyyy;
     // console.log(today);
 
   }

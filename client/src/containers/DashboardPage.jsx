@@ -131,7 +131,9 @@ class DashboardPage extends React.Component {
           {this.state.dataRow.map((arrs) =>
             <div key={arrs._id}>
               <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' }}>
-                {/* <PostImage/> */}
+                <div style={{ fontSize: '20px', color: 'green', textAlign: 'left', marginLeft: '25px', paddingTop: '20px'}}>Available from: {arrs.available.from}</div>
+                <div style={{ fontSize: '20px', color: 'green', textAlign: 'left', marginLeft: '25px', paddingTop: '20px'}}>Available from: {arrs.available.to}</div>
+                <PostImage/>
                 <CardText style={{ fontSize: '16px', color: 'black' }}>
                   City: <strong>{arrs.city}</strong><br />
                 </CardText>
