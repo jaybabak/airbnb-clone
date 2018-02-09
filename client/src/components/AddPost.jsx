@@ -6,9 +6,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import DatePicker from 'material-ui/DatePicker';
 
+const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, success, onSelect, onSelectTo, dateHelper }) => (
 
-const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, success }) => (
   <Card className="container">
     <CardTitle
       title="Add Post"
@@ -50,6 +51,12 @@ const AddPost = ({ secretData, user, onChange, onSubmit, payload, errors, succes
           errorText={errors.type}
           // value={user.type}
         />
+
+        <div className="field-line">
+          Dates you would like to rent your place out for:
+        </div>
+        <DatePicker hintText="Available From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to}/>
+        <DatePicker hintText="Available To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from}/>
 
         {/* <SelectField
           floatingLabelText="Space Type"

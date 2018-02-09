@@ -14,9 +14,9 @@ function validateAddPostForm(formData) {
   let isFormValid = true;
   let message = '';
 
-  console.log(formData);
+  // console.log(formData);
 
-  if (!formData || typeof formData.city !== 'string' || formData.city.trim().length === 0 || !isNaN(formData.city) && typeof formData != 'undefined') {
+  if (!formData || typeof formData.city !== 'string' || formData.city.trim().length === 0 || formData.city == 'undefined') {
     isFormValid = false;
     errors.city = 'Please provide a valid city';
   }
@@ -26,9 +26,19 @@ function validateAddPostForm(formData) {
     errors.guests = 'Please enter a valid number';
   }
 
-  if (!formData || typeof formData.type !== 'string' || formData.type.trim().length === 0 && typeof formData != 'undefined' || formData.type == 'null') {
+  if (!formData || typeof formData.type !== 'string' || formData.type.trim().length === 0 || formData.type == 'undefined') {
     isFormValid = false;
     errors.type = 'Must select an option';
+  }
+
+  if (!formData || typeof formData.from !== 'string' || formData.from.trim().length === 0 || formData.from == 'undefined') {
+    isFormValid = false;
+    errors.from = 'Enter Date!';
+  }
+
+  if (!formData || typeof formData.to !== 'string' || formData.to.trim().length === 0 || formData.to == 'undefined') {
+    isFormValid = false;
+    errors.to = 'Enter Date!';
   }
 
   if (!isFormValid) {
@@ -56,7 +66,7 @@ function saveListing(listing, users){
     type: listing.type
   };
 
-  console.log(nodeObject);
+  // console.log(nodeObject);
 
   let postObject = new Posty(nodeObject);
 
@@ -69,7 +79,7 @@ function saveListing(listing, users){
 
       problem = true;
 
-      console.log(err);
+      // console.log(err);
       return problem;
     }else {
 
@@ -129,13 +139,13 @@ router.get('/listings', (req, res) => {
 router.get('/listing/:id', (req, res) => {
 
   // console.log(req.user);
-  console.log(req);
+  // console.log(req);
   var postID = req.url.split('/');
 
 
   if(postID !== 'null'){
 
-    console.log(postID[2]);
+    // console.log(postID[2]);
     // const myLists = getUserLists(req.body.uid);
     // console.log(myLists);
     const all = Posty.find({ _id: postID[2] }, function (err, item) {
@@ -143,7 +153,7 @@ router.get('/listing/:id', (req, res) => {
         return err
       }
     //
-      console.log(item);
+      // console.log(item);
     //
       res.status(200).json({
         message: "You're authorized to see this secret message.",
@@ -207,7 +217,7 @@ router.get('/views/random', (req, res) => {
 
 router.route('/add').post((req, res) => {
 
-  // console.log(req.body);
+  console.log(req.body);
   // res.status(200).send('OK');
   const formResults = validateAddPostForm(req.body);
 

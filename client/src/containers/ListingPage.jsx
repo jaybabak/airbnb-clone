@@ -71,7 +71,7 @@ class ListingPage extends React.Component {
             title={this.state.data.city}
             subtitle={this.state.data.type}
           />
-          <PostImage/>
+          {/* <PostImage/> */}
 
 
           <CardTitle

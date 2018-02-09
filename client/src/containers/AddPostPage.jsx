@@ -17,11 +17,14 @@ class AddPostPage extends React.Component {
       secretData: '',
       user: {},
       successMsg: '',
-      errors: {}
+      errors: {},
+      todaysDate: ''
     };
 
     this.changeUser = this.changeUser.bind(this);
     this.addPosts = this.addPosts.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.onSelectTo = this.onSelectTo.bind(this);
 
   }
 
@@ -46,6 +49,36 @@ class AddPostPage extends React.Component {
       }
     });
     xhr.send();
+
+    // const todays = new Date('DD-MM-YYYY');
+    //
+
+    //
+    // this.setState({
+    //   todaysDate: today
+    // });
+    // // console.log(this.state.todaysDate);
+
+  }
+
+
+  formatDate(ev){
+
+    // console.log(ev.getDate());
+
+
+    var dd = ev.getDate();
+    var mm = ev.getMonth()+1; //January is 0!
+
+    var yyyy = ev.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    }
+    if(mm<10){
+        mm='0'+mm;
+    }
+    return ev = dd+'/'+mm+'/'+yyyy;
+    // console.log(today);
 
   }
 
@@ -73,8 +106,10 @@ class AddPostPage extends React.Component {
     const guests = encodeURIComponent(this.state.user.guests);
     const type = encodeURIComponent(this.state.user.type);
     const email = encodeURIComponent(this.state.user.email);
+    const avaFrom = encodeURIComponent(this.state.user.from);
+    const avaTo = encodeURIComponent(this.state.user.to);
     const uid = encodeURIComponent(this.state.user._id);
-    const formData = `email=${email}&city=${city}&guests=${guests}&type=${type}&uid=${uid}`;
+    const formData = `email=${email}&city=${city}&guests=${guests}&type=${type}&uid=${uid}&from=${avaFrom}&to=${avaTo}`;
     // const formData = `data=false`;
 
     // console.log(this.state.user._id);
@@ -121,13 +156,39 @@ class AddPostPage extends React.Component {
     const user = this.state.user;
     user[field] = event.target.value;
 
-    // console.log(user[field]);
-
     this.setState({
       user
     });
 
 
+  }
+
+  onSelect(event, date) {
+    // console.log(event + date);
+    const xd = this.formatDate(date);
+    const user2 = this.state.user;
+    // console.log(user2);
+
+    user2['from'] = xd;
+    // console.log(user2);
+
+    this.setState({
+      user2
+    });
+  }
+
+  onSelectTo(event, date) {
+    // console.log(event + date);
+    const xd2 = this.formatDate(date);
+    const user3 = this.state.user;
+    // console.log(user2);
+
+    user3['to'] = xd2;
+    console.log(user3);
+
+    this.setState({
+      user3
+    });
   }
 
 
@@ -137,7 +198,7 @@ class AddPostPage extends React.Component {
   render() {
     return (
       <div>
-        <AddPost onSubmit={this.addPosts} onChange={this.changeUser} secretData={this.state.secretData} user={this.state.user} errors={this.state.errors} success={this.state.successMsg}/>
+        <AddPost onSubmit={this.addPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} secretData={this.state.secretData} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} today={this.state.todaysDate}/>
       </div>
     );
   }

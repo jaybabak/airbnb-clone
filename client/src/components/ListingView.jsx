@@ -64,7 +64,7 @@ class ListingView extends React.Component {
 
       {this.state.data.map((arrs) => <div key={arrs._id}>
           <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' }}>
-            <PostImage/>
+            {/* <PostImage/> */}
             <CardText style={{ fontSize: '16px', color: 'black' }}>
               City: <strong>{arrs.city}</strong><br />
             </CardText>
