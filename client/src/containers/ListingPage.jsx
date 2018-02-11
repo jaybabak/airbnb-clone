@@ -46,7 +46,6 @@ class ListingPage extends React.Component {
       xhr.responseType = 'json';
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
-
           this.setState({
             data: xhr.response.postData[0],
             from: xhr.response.postData[0].available.from,

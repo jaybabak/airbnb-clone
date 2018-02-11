@@ -9984,7 +9984,7 @@ var ListingView = function (_React$Component) {
             { key: arrs._id },
             _react2.default.createElement(
               _Card.Card,
-              { className: 'container row', style: { backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' } },
+              { className: 'container row', style: { backgroundColor: '#f3f3f3', color: 'white', marginTop: '0px', border: '3px solid #e2e2e2', borderBottom: '6px solid #e2e2e2' } },
               _react2.default.createElement(_PostImage2.default, null),
               _react2.default.createElement(
                 _Card.CardText,
@@ -17617,7 +17617,7 @@ var Main = function (_Component) {
           null,
           _react2.default.createElement(
             'div',
-            null,
+            { style: { backgroundColor: '#1A1B25', paddingBottom: '100px' } },
             _react2.default.createElement(
               'div',
               { className: 'top-bar' },
@@ -17919,10 +17919,6 @@ var Dashboard = function Dashboard(_ref) {
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
-    _react2.default.createElement(_Card.CardTitle, {
-      title: 'Dashboard',
-      subtitle: 'You should get access to this page only after authentication.'
-    }),
     secretData && _react2.default.createElement(
       _Card.CardText,
       { style: { fontSize: '16px', color: 'cornflowerblue' } },
@@ -18864,7 +18860,6 @@ var ListingPage = function (_React$Component) {
         xhr.responseType = 'json';
         xhr.addEventListener('load', function () {
           if (xhr.status === 200) {
-
             _this2.setState({
               data: xhr.response.postData[0],
               from: xhr.response.postData[0].available.from,

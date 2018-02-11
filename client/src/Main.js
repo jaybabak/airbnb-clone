@@ -79,7 +79,7 @@ class Main extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
-          <div>
+          <div style={{ backgroundColor: '#1A1B25', paddingBottom: '100px' }}>
             <div className="top-bar">
               <div className="top-bar-left">
                 <Link to="/">React App</Link>
