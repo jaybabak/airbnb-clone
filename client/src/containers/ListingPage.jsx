@@ -19,7 +19,9 @@ class ListingPage extends React.Component {
     this.state = {
       secretData: '',
       user: {},
-      data: {}
+      data: {},
+      from: '',
+      to: ''
     };
   }
 
@@ -34,7 +36,7 @@ class ListingPage extends React.Component {
 
       // console.log(window.location.href);
       var pid = window.location.href.split('/');
-      console.log(pid[4]);
+      // console.log(pid[4]);
 
       const xhr = new XMLHttpRequest();
       xhr.open('get', '/api/listing/' + pid[4]);
@@ -44,13 +46,13 @@ class ListingPage extends React.Component {
       xhr.responseType = 'json';
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
-          console.log(xhr.response);
 
           this.setState({
             data: xhr.response.postData[0],
+            from: xhr.response.postData[0].available.from,
+            to: xhr.response.postData[0].available.to
           });
           // resolve(this.state.user._id);
-          console.log(this.state.data);
         }
       });
       xhr.send();
@@ -71,14 +73,23 @@ class ListingPage extends React.Component {
             title={this.state.data.city}
             subtitle={this.state.data.type}
           />
-          {/* <PostImage/> */}
+          <PostImage/>
 
+          <CardTitle title='DETAILS'/>
 
-          <CardTitle
-            title='DETAILS'
-          />
           <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
             # of guests allowed: <strong>{this.state.data.guests}</strong><br />
+          </CardText>
+
+          <CardText style={{ fontSize: '16px', color: '#F27F3D', backgroundColor: '#E2E2E2' }}>
+            <h3>Dates available: <br/></h3>
+          </CardText>
+
+          <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
+            Available From: <strong>{this.state.from}</strong><br />
+          </CardText>
+          <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
+            Available To: <strong>{this.state.to}</strong><br />
           </CardText>
 
         </Card>

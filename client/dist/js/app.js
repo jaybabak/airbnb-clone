@@ -9959,7 +9959,7 @@ var ListingView = function (_React$Component) {
               data: lvr.response.data
             });
             // resolve(this.state.user._id);
-            // console.log(this.state.data);
+            console.log(_this2.state.data);
           }
         });
         lvr.send();
@@ -9985,6 +9985,7 @@ var ListingView = function (_React$Component) {
             _react2.default.createElement(
               _Card.Card,
               { className: 'container row', style: { backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' } },
+              _react2.default.createElement(_PostImage2.default, null),
               _react2.default.createElement(
                 _Card.CardText,
                 { style: { fontSize: '16px', color: 'black' } },
@@ -10015,6 +10016,24 @@ var ListingView = function (_React$Component) {
                   'strong',
                   null,
                   arrs.type
+                ),
+                _react2.default.createElement('br', null)
+              ),
+              _react2.default.createElement(
+                _Card.CardText,
+                { style: { fontSize: '16px', color: '#F27F3D' } },
+                'Available From: ',
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  arrs.available.from
+                ),
+                _react2.default.createElement('br', null),
+                'Available To: ',
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  arrs.available.to
                 ),
                 _react2.default.createElement('br', null)
               ),
@@ -17906,7 +17925,7 @@ var Dashboard = function Dashboard(_ref) {
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,
-      { style: { fontSize: '16px', color: 'green' } },
+      { style: { fontSize: '16px', color: 'cornflowerblue' } },
       'Welcome ',
       _react2.default.createElement(
         'strong',
@@ -18709,7 +18728,7 @@ var DashboardPage = function (_React$Component) {
                 _react2.default.createElement(
                   'div',
                   { style: { fontSize: '20px', color: 'green', textAlign: 'left', marginLeft: '25px', paddingTop: '20px' } },
-                  'Available from: ',
+                  'Available to: ',
                   arrs.available.to
                 ),
                 _react2.default.createElement(_PostImage2.default, null),
@@ -18812,7 +18831,9 @@ var ListingPage = function (_React$Component) {
     _this.state = {
       secretData: '',
       user: {},
-      data: {}
+      data: {},
+      from: '',
+      to: ''
     };
     return _this;
   }
@@ -18833,7 +18854,7 @@ var ListingPage = function (_React$Component) {
 
         // console.log(window.location.href);
         var pid = window.location.href.split('/');
-        console.log(pid[4]);
+        // console.log(pid[4]);
 
         var xhr = new XMLHttpRequest();
         xhr.open('get', '/api/listing/' + pid[4]);
@@ -18843,13 +18864,13 @@ var ListingPage = function (_React$Component) {
         xhr.responseType = 'json';
         xhr.addEventListener('load', function () {
           if (xhr.status === 200) {
-            console.log(xhr.response);
 
             _this2.setState({
-              data: xhr.response.postData[0]
+              data: xhr.response.postData[0],
+              from: xhr.response.postData[0].available.from,
+              to: xhr.response.postData[0].available.to
             });
             // resolve(this.state.user._id);
-            console.log(_this2.state.data);
           }
         });
         xhr.send();
@@ -18873,9 +18894,8 @@ var ListingPage = function (_React$Component) {
             title: this.state.data.city,
             subtitle: this.state.data.type
           }),
-          _react2.default.createElement(_Card.CardTitle, {
-            title: 'DETAILS'
-          }),
+          _react2.default.createElement(_PostImage2.default, null),
+          _react2.default.createElement(_Card.CardTitle, { title: 'DETAILS' }),
           _react2.default.createElement(
             _Card.CardText,
             { style: { fontSize: '16px', color: '#F27F3D' } },
@@ -18884,6 +18904,38 @@ var ListingPage = function (_React$Component) {
               'strong',
               null,
               this.state.data.guests
+            ),
+            _react2.default.createElement('br', null)
+          ),
+          _react2.default.createElement(
+            _Card.CardText,
+            { style: { fontSize: '16px', color: '#F27F3D', backgroundColor: '#E2E2E2' } },
+            _react2.default.createElement(
+              'h3',
+              null,
+              'Dates available: ',
+              _react2.default.createElement('br', null)
+            )
+          ),
+          _react2.default.createElement(
+            _Card.CardText,
+            { style: { fontSize: '16px', color: '#F27F3D' } },
+            'Available From: ',
+            _react2.default.createElement(
+              'strong',
+              null,
+              this.state.from
+            ),
+            _react2.default.createElement('br', null)
+          ),
+          _react2.default.createElement(
+            _Card.CardText,
+            { style: { fontSize: '16px', color: '#F27F3D' } },
+            'Available To: ',
+            _react2.default.createElement(
+              'strong',
+              null,
+              this.state.to
             ),
             _react2.default.createElement('br', null)
           )

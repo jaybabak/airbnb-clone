@@ -8,7 +8,7 @@ const Dashboard = ({ secretData, user, content }) => (
       title="Dashboard"
       subtitle="You should get access to this page only after authentication."
     />
-  {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>!<br />{secretData}</CardText>}
+  {secretData && <CardText style={{ fontSize: '16px', color: 'cornflowerblue' }}>Welcome <strong>{user.name}</strong>!<br />{secretData}</CardText>}
 
   </Card>
 );

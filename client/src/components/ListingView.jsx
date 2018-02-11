@@ -41,7 +41,7 @@ class ListingView extends React.Component {
             data: lvr.response.data,
           });
           // resolve(this.state.user._id);
-          // console.log(this.state.data);
+          console.log(this.state.data);
         }
       });
       lvr.send();
@@ -64,7 +64,7 @@ class ListingView extends React.Component {
 
       {this.state.data.map((arrs) => <div key={arrs._id}>
           <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '20px' }}>
-            {/* <PostImage/> */}
+            <PostImage/>
             <CardText style={{ fontSize: '16px', color: 'black' }}>
               City: <strong>{arrs.city}</strong><br />
             </CardText>
@@ -73,6 +73,10 @@ class ListingView extends React.Component {
             </CardText>
             <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
               Type: <strong>{arrs.type}</strong><br />
+            </CardText>
+            <CardText style={{ fontSize: '16px', color: '#F27F3D' }}>
+              Available From: <strong>{arrs.available.from}</strong><br />
+              Available To: <strong>{arrs.available.to}</strong><br />
             </CardText>
           <Link to={'/listing/' + arrs._id}><FlatButton style={{ backgroundColor: '#1B4159', color: 'white' }} label="View Listing" /></Link>
           </Card>

@@ -144,7 +144,7 @@ router.get('/listings', (req, res) => {
       console.log(row);
 
       res.status(200).json({
-        message: "You're authorized to see this secret message.",
+        message: "Sucess",
         user: req.user,
         data: row
       });
@@ -181,7 +181,7 @@ router.get('/listing/:id', (req, res) => {
       // console.log(item);
     //
       res.status(200).json({
-        message: "You're authorized to see this secret message.",
+        message: "Success",
         postData: item
       });
     //
@@ -236,9 +236,55 @@ router.get('/views/random', (req, res) => {
 
   // console.log(req.user._id);
 
+  console.log(req.body);
+
+
   if(req != null){
     // const myLists = getUserLists(req.body.uid);
     // console.log(myLists);
+
+    // const getAuthor = Posty.aggregate([
+    //    {
+    //       $match: {}
+    //    },
+    //   //  {
+    //   //     $graphLookup: {
+    //   //        from: "User",
+    //   //        startWith: "$uid",
+    //   //        connectFromField: "uid",
+    //   //        connectToField: "_id",
+    //   //        maxDepth: 1,
+    //   //        depthField: "name",
+    //   //        as: "authors"
+    //   //     }
+    //   //  }
+    //   {
+    //       $lookup: {
+    //         from: "User",
+    //         localField: 'uid',
+    //         foreignField: '_id',
+    //         as: 'authors'
+    //
+    //       }
+    //    }
+    // ], function(errs, rows){
+    //
+    //   if (errs){
+    //     return err
+    //   }
+    //   console.log('-----------------////----////------');
+    //   console.log(rows);
+    //
+    //   res.status(200).json({
+    //     message: "Success",
+    //     data: rows
+    //   });
+    //
+    // });
+
+
+    // console.log(getAuthor);
+
     const viewsRandom = Posty.find({}, function (err, row) {
       if (err){
         return err
@@ -247,7 +293,7 @@ router.get('/views/random', (req, res) => {
       // console.log(row);
 
       res.status(200).json({
-        message: "You're authorized to see this secret message.",
+        message: "Success",
         data: row
       });
 
