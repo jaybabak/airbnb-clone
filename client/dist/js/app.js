@@ -9985,6 +9985,17 @@ var ListingView = function (_React$Component) {
             _react2.default.createElement(
               _Card.Card,
               { className: 'container row', style: { backgroundColor: '#f3f3f3', color: 'white', marginTop: '0px', border: '3px solid #e2e2e2', borderBottom: '6px solid #e2e2e2' } },
+              _react2.default.createElement(
+                _Card.CardText,
+                { style: { textAlign: 'left', fontSize: '16px', color: 'black' } },
+                'Hosted by: ',
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  arrs.author[0].name
+                ),
+                _react2.default.createElement('br', null)
+              ),
               _react2.default.createElement(_PostImage2.default, null),
               _react2.default.createElement(
                 _Card.CardText,

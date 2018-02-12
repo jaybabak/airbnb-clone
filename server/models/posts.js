@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
 // define the User model schema
 const PostySchema = new mongoose.Schema({
 
-  uid: String,
+  uid: {type: Schema.Types.ObjectId, required: true},
   city: { type: String, trim: true, required: true },
   guests: { type: Number, min: 1, max:12, required: true },
   type: { type: String, trim: true, required: true },

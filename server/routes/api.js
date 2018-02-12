@@ -1,5 +1,6 @@
 const express = require('express');
-const Posty = require('mongoose').model('Posty');
+const mongoose = require('mongoose')
+const Posty = mongoose.model('Posty');
 const router = new express.Router();
 
 
@@ -62,12 +63,12 @@ function saveListing(listing, users){
   let problem = false;
 
 
-  console.log(listing.to);
+  // console.log(listing.to);
   // console.log(new Date(listing.to));
 
   const from = new Date(listing.from);
   const to = new Date(listing.to);
-  console.log(from + '////' + to)
+  // console.log(from + '////' + to)
 
   nodeObject = {
     uid: users._id,
@@ -80,7 +81,7 @@ function saveListing(listing, users){
     }
   };
 
-  console.log(nodeObject);
+  // console.log(nodeObject);
 
   let postObject = new Posty(nodeObject);
 
@@ -141,7 +142,7 @@ router.get('/listings', (req, res) => {
         return err
       }
 
-      console.log(row);
+      // console.log(row);
 
       res.status(200).json({
         message: "Sucess",
@@ -196,10 +197,11 @@ router.get('/listing/:id', (req, res) => {
   }
 });
 
+//ROUTE FOR INVIDUAL BOOKING!!! --------------------------------
 router.get('/listing/:id/book', (req, res) => {
 
   // console.log(req.user);
-  console.log(req);
+  // console.log(req);
   // var postID = req.url.split('/');
 
   // if(postID !== 'null'){
@@ -236,69 +238,95 @@ router.get('/views/random', (req, res) => {
 
   // console.log(req.user._id);
 
-  console.log(req.body);
+
+
+  // console.log(req.body);
 
 
   if(req != null){
     // const myLists = getUserLists(req.body.uid);
     // console.log(myLists);
 
-    // const getAuthor = Posty.aggregate([
-    //    {
-    //       $match: {}
-    //    },
-    //   //  {
-    //   //     $graphLookup: {
-    //   //        from: "User",
-    //   //        startWith: "$uid",
-    //   //        connectFromField: "uid",
-    //   //        connectToField: "_id",
-    //   //        maxDepth: 1,
-    //   //        depthField: "name",
-    //   //        as: "authors"
-    //   //     }
-    //   //  }
-    //   {
-    //       $lookup: {
-    //         from: "User",
-    //         localField: 'uid',
-    //         foreignField: '_id',
-    //         as: 'authors'
-    //
-    //       }
-    //    }
-    // ], function(errs, rows){
-    //
-    //   if (errs){
-    //     return err
-    //   }
-    //   console.log('-----------------////----////------');
-    //   console.log(rows);
-    //
-    //   res.status(200).json({
-    //     message: "Success",
-    //     data: rows
-    //   });
-    //
-    // });
+    const getAuthor = Posty.aggregate([
+        // Unwind the source
+        {
+          $match: {}
+        },
+        {
+            $lookup: {
+              from: 'users',
+              localField: 'uid',
+              foreignField: '_id',
+              as: 'author'
+            }
+        },
+        // Group back to arrays
+        // {
+        //   "$group": {
+        //     "_id": "$_id",
+        //     "User": { "$push": "$User" },
+        //     "author": { "$push": "$author" }
+        //   }
+        // }
+    ], function(errs, rows){
+
+      if (errs){
+        return errs
+      }
+      console.log('-----------------////----////------');
+      console.log(rows);
+
+      res.status(200).json({
+        message: "Success",
+        data: rows
+      });
+
+    });
 
 
     // console.log(getAuthor);
 
+
+    // existing woring
+    // const viewsRandom = Posty.find({}, function (err, row) {
+    //   if (err){
+    //     return err
+    //   }
+    //
+    //   console.log(row);
+    //
+    //   res.status(200).json({
+    //     message: "Success",
+    //     data: row
+    //   });
+    //
+    //   // allUserListings[0] = "";
+    // }).limit(25);
+
+
+    //updating uid to object ID
     const viewsRandom = Posty.find({}, function (err, row) {
       if (err){
         return err
       }
 
       // console.log(row);
+      //
+      for(var z=0; z<row.length; z++){
+        console.log(row[z].uid);
 
-      res.status(200).json({
-        message: "Success",
-        data: row
-      });
+        row[z].uid = mongoose.Types.ObjectId(row[z].uid);
+        // row[z].save();
+      }
+
+      //
+      // res.status(200).json({
+      //   message: "Success",
+      //   data: row
+      // });
 
       // allUserListings[0] = "";
-    }).limit(25);
+    });
 
   }else {
     res.status(200).json({
