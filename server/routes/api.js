@@ -63,8 +63,10 @@ function saveListing(listing, users){
   let problem = false;
 
 
-  // console.log(listing.to);
-  // console.log(new Date(listing.to));
+  console.log(listing.to);
+  console.log(new Date(listing.to));
+
+  listing.to
 
   const from = new Date(listing.from);
   const to = new Date(listing.to);
@@ -198,9 +200,9 @@ router.get('/listing/:id', (req, res) => {
 });
 
 //ROUTE FOR INVIDUAL BOOKING!!! --------------------------------
-router.get('/listing/:id/book', (req, res) => {
+router.post('/book/:id/', (req, res) => {
 
-  // console.log(req.user);
+  console.log(req.user);
   // console.log(req);
   // var postID = req.url.split('/');
 
@@ -225,10 +227,10 @@ router.get('/listing/:id/book', (req, res) => {
   //   });
   //
   // }else {
-  //   res.status(200).json({
-  //     success: false,
-  //     message: 'No listing found.',
-  //   });
+    res.status(200).json({
+      success: false,
+      message: 'No listing found.',
+    });
   // }
 });
 
@@ -275,8 +277,8 @@ router.get('/views/random', (req, res) => {
       if (errs){
         return errs
       }
-      console.log('-----------------////----////------');
-      console.log(rows);
+      // console.log('-----------------////----////------');
+      // console.log(rows);
 
       res.status(200).json({
         message: "Success",
@@ -312,14 +314,14 @@ router.get('/views/random', (req, res) => {
         return err
       }
 
-      // console.log(row);
+      // DONT THINK ITS NEEDED BUT COMMENT BACK IN IF SHIT STOPS WORKING
       //
-      for(var z=0; z<row.length; z++){
-        console.log(row[z].uid);
-
-        row[z].uid = mongoose.Types.ObjectId(row[z].uid);
-        // row[z].save();
-      }
+      // for(var z=0; z<row.length; z++){
+      //   // console.log(row[z].uid);
+      //
+      //   row[z].uid = mongoose.Types.ObjectId(row[z].uid);
+      //   // row[z].save();
+      // }
 
       //
       // res.status(200).json({

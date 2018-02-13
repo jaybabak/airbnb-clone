@@ -64,6 +64,7 @@ class ListingView extends React.Component {
 
       {this.state.data.map((arrs) => <div key={arrs._id}>
           <Card className="container row" style={{ backgroundColor: '#f3f3f3', color: 'white', marginTop: '0px', border: '3px solid #e2e2e2', borderBottom: '6px solid #e2e2e2' }}>
+            <Link to={'/book/' + arrs._id}><FlatButton style={{ backgroundColor: '#E0FF4F', color: 'black' }} label="Book This Now!" /></Link>
             <CardText style={{ textAlign: 'left', fontSize: '16px', color: 'black' }}>
               Hosted by: <strong>{arrs.author[0].name}</strong><br />
             </CardText>

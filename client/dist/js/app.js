@@ -9986,6 +9986,11 @@ var ListingView = function (_React$Component) {
               _Card.Card,
               { className: 'container row', style: { backgroundColor: '#f3f3f3', color: 'white', marginTop: '0px', border: '3px solid #e2e2e2', borderBottom: '6px solid #e2e2e2' } },
               _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/book/' + arrs._id },
+                _react2.default.createElement(_FlatButton2.default, { style: { backgroundColor: '#E0FF4F', color: 'black' }, label: 'Book This Now!' })
+              ),
+              _react2.default.createElement(
                 _Card.CardText,
                 { style: { textAlign: 'left', fontSize: '16px', color: 'black' } },
                 'Hosted by: ',
@@ -17538,6 +17543,10 @@ var _AddPostPage = __webpack_require__(211);
 
 var _AddPostPage2 = _interopRequireDefault(_AddPostPage);
 
+var _BookingPage = __webpack_require__(514);
+
+var _BookingPage2 = _interopRequireDefault(_BookingPage);
+
 var _Auth = __webpack_require__(29);
 
 var _Auth2 = _interopRequireDefault(_Auth);
@@ -17678,6 +17687,7 @@ var Main = function (_Component) {
             _react2.default.createElement(PrivateRoute, { path: '/dashboard', component: _DashboardPage2.default }),
             _react2.default.createElement(PrivateRoute, { path: '/add-post', component: _AddPostPage2.default }),
             _react2.default.createElement(PrivateRoute, { path: '/listing/:id', component: _ListingPage2.default }),
+            _react2.default.createElement(PrivateRoute, { path: '/book/:id', component: _BookingPage2.default }),
             _react2.default.createElement(LoggedOutRoute, { path: '/login', component: _LoginPage2.default, toggleAuthenticateStatus: function toggleAuthenticateStatus() {
                 return _this2.toggleAuthenticateStatus();
               } }),
@@ -53719,6 +53729,407 @@ NavigationChevronRight.displayName = 'NavigationChevronRight';
 NavigationChevronRight.muiName = 'SvgIcon';
 
 exports.default = NavigationChevronRight;
+
+/***/ }),
+/* 513 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Card = __webpack_require__(26);
+
+var _reactRouterDom = __webpack_require__(39);
+
+var _RaisedButton = __webpack_require__(105);
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _TextField = __webpack_require__(71);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _SelectField = __webpack_require__(335);
+
+var _SelectField2 = _interopRequireDefault(_SelectField);
+
+var _MenuItem = __webpack_require__(329);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _DatePicker = __webpack_require__(505);
+
+var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Booking = function Booking(_ref) {
+  var secretData = _ref.secretData,
+      user = _ref.user,
+      onChange = _ref.onChange,
+      onSubmit = _ref.onSubmit,
+      payload = _ref.payload,
+      errors = _ref.errors,
+      success = _ref.success,
+      onSelect = _ref.onSelect,
+      onSelectTo = _ref.onSelectTo,
+      dateHelper = _ref.dateHelper;
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(_Card.CardTitle, {
+      title: 'Fill out this super short form!'
+    }),
+    secretData && _react2.default.createElement(
+      _Card.CardText,
+      { style: { fontSize: '16px', color: 'black' } },
+      _react2.default.createElement(
+        'strong',
+        null,
+        user.name
+      ),
+      ', you are very close to completing your booking.'
+    ),
+    _react2.default.createElement(
+      'form',
+      { action: '/', onSubmit: onSubmit },
+      _react2.default.createElement(
+        'h2',
+        { style: { color: 'cornflowerblue' }, className: 'card-heading' },
+        'Book Your Stay'
+      ),
+      _react2.default.createElement(
+        _Card.CardText,
+        { style: { fontSize: '16px', color: 'green' } },
+        _react2.default.createElement(
+          'strong',
+          null,
+          success.message
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'field-line' },
+          'How long will you be booking your stay'
+        ),
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to, mode: 'landscape', autoOk: true }),
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from, mode: 'landscape', autoOk: true })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'button-line' },
+        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Add New Listing', primary: true })
+      )
+    )
+  );
+};
+
+Booking.propTypes = {
+  secretData: _propTypes2.default.string.isRequired,
+  user: _propTypes2.default.object.isRequired,
+  onChange: _propTypes2.default.func.isRequired,
+  onSubmit: _propTypes2.default.func.isRequired,
+  errors: _propTypes2.default.object.isRequired
+};
+
+exports.default = Booking;
+
+/***/ }),
+/* 514 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Auth = __webpack_require__(29);
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Booking = __webpack_require__(513);
+
+var _Booking2 = _interopRequireDefault(_Booking);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BookingPage = function (_React$Component) {
+  _inherits(BookingPage, _React$Component);
+
+  /**
+   * Class constructor.
+   */
+  function BookingPage(props) {
+    _classCallCheck(this, BookingPage);
+
+    var _this = _possibleConstructorReturn(this, (BookingPage.__proto__ || Object.getPrototypeOf(BookingPage)).call(this, props));
+
+    _this.state = {
+      secretData: '',
+      user: {},
+      successMsg: '',
+      errors: {},
+      todaysDate: ''
+    };
+
+    _this.changeUser = _this.changeUser.bind(_this);
+    _this.bookPosts = _this.bookPosts.bind(_this);
+    _this.onSelect = _this.onSelect.bind(_this);
+    _this.onSelectTo = _this.onSelectTo.bind(_this);
+
+    return _this;
+  }
+
+  //------NEED TO ADDRESS THIS HERE
+  /**
+   * This method will be executed after initial rendering.
+   */
+
+
+  _createClass(BookingPage, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var bookThis = new Promise(function (resolve, reject) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', '/api/dashboard');
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // set the authorization HTTP header
+        xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
+        xhr.responseType = 'json';
+        xhr.addEventListener('load', function () {
+          if (xhr.status === 200) {
+            _this2.setState({
+              user: xhr.response.user,
+              secretData: xhr.response.message
+            });
+          }
+        });
+        xhr.send();
+
+        resolve('Hello');
+      });
+
+      bookThis.then(function (success) {
+
+        var pid = window.location.href.split('/');
+        console.log(pid[4]);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', '/api/book/' + pid[4]);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // set the authorization HTTP header
+        xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
+        xhr.responseType = 'json';
+        xhr.addEventListener('load', function () {
+          if (xhr.status === 200) {
+            // this.setState({
+            //   data: xhr.response.postData[0],
+            //   from: xhr.response.postData[0].available.from,
+            //   to: xhr.response.postData[0].available.to
+            // });
+            console.log(xhr.response);
+            // resolve(this.state.user._id);
+          }
+        });
+        xhr.send();
+      });
+    }
+  }, {
+    key: 'formatDate',
+    value: function formatDate(ev) {
+
+      // console.log(ev.getDate());
+
+
+      var dd = ev.getDate();
+      var mm = ev.getMonth() + 1; //January is 0!
+
+      var yyyy = ev.getFullYear();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+      return ev = mm + '-' + dd + '-' + yyyy;
+      // console.log(today);
+    }
+
+    //LEFT HEREE
+    /**
+     * Process the form.
+     *
+     * @param {object} event - the JavaScript event object
+     */
+
+  }, {
+    key: 'bookPosts',
+    value: function bookPosts(event) {
+      // prevent default action. in this case, action is the form submission event
+      event.preventDefault();
+
+      // this.setState({
+      //   user: {
+      //     city: 'O',
+      //     guests: '2',
+      //     type: '3'
+      //   },
+      // });
+
+
+      console.log(this.state.user);
+      // create a string for an HTTP body message
+      // const user = encodeURIComponent(this.state.user);
+      // const city = encodeURIComponent(this.state.user.city);
+      // const guests = encodeURIComponent(this.state.user.guests);
+      // const type = encodeURIComponent(this.state.user.type);
+      // const email = encodeURIComponent(this.state.user.email);
+      // const avaFrom = encodeURIComponent(this.state.user.from);
+      // const avaTo = encodeURIComponent(this.state.user.to);
+      // const uid = encodeURIComponent(this.state.user._id);
+      // const formData = `email=${email}&city=${city}&guests=${guests}&type=${type}&uid=${uid}&from=${avaFrom}&to=${avaTo}`;
+      // // const formData = `data=false`;
+      //
+      // // console.log(this.state.user._id);
+      //
+      // const xhr3 = new XMLHttpRequest();
+      // xhr3.open('post', 'api/add');
+      // xhr3.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // xhr3.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+      // xhr3.responseType = 'json';
+      // xhr3.addEventListener('load', () => {
+      //   if (xhr3.status === 200) {
+      //     // success
+      //     console.log(xhr3);
+      //     this.setState({
+      //       successMsg: xhr3.response
+      //     });
+      //
+      //   } else if (xhr3.status === 400) {
+      //     // failure
+      //     const errors = xhr3.response.errors ? xhr3.response.errors : {};
+      //     errors.summary = xhr3.response.message;
+      //
+      //     console.log(errors);
+      //
+      //     this.setState({
+      //       errors
+      //     });
+      //   }
+      // });
+      // xhr3.send(formData);
+    }
+
+    //issue can be here with the storing of data since this function is not
+
+    /**
+     * Change the user object.
+     *
+     * @param {object} event - the JavaScript event object
+     */
+
+  }, {
+    key: 'changeUser',
+    value: function changeUser(event) {
+
+      var field = event.target.name;
+      var user = this.state.user;
+      user[field] = event.target.value;
+
+      this.setState({
+        user: user
+      });
+    }
+  }, {
+    key: 'onSelect',
+    value: function onSelect(event, date) {
+      // console.log(event + date);
+      var xd = this.formatDate(date);
+      var user2 = this.state.user;
+      // console.log(user2);
+
+      user2['from'] = xd;
+      console.log(user2);
+
+      this.setState({
+        user2: user2
+      });
+    }
+  }, {
+    key: 'onSelectTo',
+    value: function onSelectTo(event, date) {
+      // console.log(event + date);
+      var xd2 = this.formatDate(date);
+      var user3 = this.state.user;
+      // console.log(user2);
+
+      user3['to'] = xd2;
+      console.log(user3);
+
+      this.setState({
+        user3: user3
+      });
+    }
+
+    /**
+     * Render the component.
+     */
+
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_Booking2.default, { onSubmit: this.bookPosts, onChange: this.changeUser, onSelect: this.onSelect, onSelectTo: this.onSelectTo, secretData: this.state.secretData, user: this.state.user, errors: this.state.errors, success: this.state.successMsg, dateHelper: this.formatDate, today: this.state.todaysDate })
+      );
+    }
+  }]);
+
+  return BookingPage;
+}(_react2.default.Component);
+
+BookingPage.contextTypes = {
+  router: _propTypes2.default.object.isRequired
+};
+
+exports.default = BookingPage;
 
 /***/ })
 /******/ ]);

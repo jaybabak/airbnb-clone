@@ -20,6 +20,7 @@ import SignUpPage from './containers/SignUpPage.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
 import ListingPage from './containers/ListingPage.jsx';
 import AddPostPage from './containers/AddPostPage.jsx';
+import BookingPage from './containers/BookingPage.jsx';
 import Auth from './modules/Auth';
 
 // remove tap delay, essential for MaterialUI to work properly
@@ -104,6 +105,7 @@ class Main extends Component {
             <PrivateRoute path="/dashboard" component={DashboardPage}/>
             <PrivateRoute path="/add-post" component={AddPostPage}/>
             <PrivateRoute path="/listing/:id" component={ListingPage}/>
+            <PrivateRoute path="/book/:id" component={BookingPage}/>
             <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
             <LoggedOutRoute path="/signup" component={SignUpPage}/>
             <Route path="/logout" component={LogoutFunction}/>
