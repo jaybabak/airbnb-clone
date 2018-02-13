@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const BookingsSchema = new mongoose.Schema({
 
   pid: { type: Schema.Types.ObjectId, required: true },
+  uid: { type: Schema.Types.ObjectId, required: true },
   reserved: {
     from: Date,
     to: Date,
@@ -13,15 +14,13 @@ const BookingsSchema = new mongoose.Schema({
 
 });
 
-
-
 /**
  * The pre-save hook method.
  */
 BookingsSchema.pre('save', function saveHook(next) {
   const post = this;
   console.log(this);
-  console.log('------WAS SAVED!');
+  console.log('BOOKING WAS SAVED!');
 
   var Bookings = mongoose.model('Bookings', BookingsSchema);
 

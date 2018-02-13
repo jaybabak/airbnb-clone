@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const Posty = mongoose.model('Posty');
+const Bookings = mongoose.model('Bookings');
 const router = new express.Router();
 
 
@@ -63,10 +64,8 @@ function saveListing(listing, users){
   let problem = false;
 
 
-  console.log(listing.to);
-  console.log(new Date(listing.to));
-
-  listing.to
+  // console.log(listing.to);
+  // console.log(new Date(listing.to));
 
   const from = new Date(listing.from);
   const to = new Date(listing.to);
@@ -124,9 +123,57 @@ function saveListing(listing, users){
 
 }
 
-function saveBooking(booking, users) {
+function saveBooking(booking, pid, user) {
+
+  // console.log(booking);
+  // console.log(pid);
 
 
+
+  let nodeObject = {};
+  let problem = false;
+
+
+
+  const from = new Date(booking.from);
+  const to = new Date(booking.to);
+  console.log(from);
+  console.log(to);
+  console.log(pid);
+  console.log(user._id);
+
+  nodeObject = {
+    pid: pid,
+    uid: user._id,
+    reserved: {
+      from: from,
+      to: to,
+    }
+  };
+
+  // console.log(nodeObject);
+
+  let postObject = new Bookings(nodeObject);
+
+
+  var saved = postObject.save(function (err){
+
+    if(err){
+
+      problem = true;
+
+      // console.log(err);
+      return problem;
+    }else {
+
+      problem = false;
+
+      return problem;
+    }
+
+  });
+
+  console.log(saved);
 
 }
 
@@ -212,10 +259,11 @@ router.post('/book/:id/', (req, res) => {
   // console.log(req.body.user.from);
   // console.log(req.body);
 
-  saveBooking(req.body, req.user)
-
   var thepid = req.url.split('/');
-  console.log(thepid[2]);
+
+  saveBooking(req.body, thepid[2], req.user);
+
+  // console.log(thepid[2]);
   // console.log(req);
   // var postID = req.url.split('/');
 
