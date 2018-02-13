@@ -253,6 +253,7 @@ router.get('/views/random', (req, res) => {
           $match: {}
         },
         {
+          //creating a join to the users enitity and grabbing authors name
             $lookup: {
               from: 'users',
               localField: 'uid',
@@ -260,14 +261,15 @@ router.get('/views/random', (req, res) => {
               as: 'author'
             }
         },
-        // Group back to arrays
-        // {
-        //   "$group": {
-        //     "_id": "$_id",
-        //     "User": { "$push": "$User" },
-        //     "author": { "$push": "$author" }
-        //   }
-        // }
+        {
+          //removing fields from the returned results query
+            $project: {
+              "author.email": 0,
+              "author.password": 0,
+              "author._id": 0,
+            },
+
+        }
     ], function(errs, rows){
 
       if (errs){
