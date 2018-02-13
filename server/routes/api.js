@@ -124,6 +124,12 @@ function saveListing(listing, users){
 
 }
 
+function saveBooking(booking, users) {
+
+
+
+}
+
 router.get('/dashboard', (req, res) => {
   res.status(200).json({
     message: "You're authorized to see this secret message.",
@@ -202,7 +208,14 @@ router.get('/listing/:id', (req, res) => {
 //ROUTE FOR INVIDUAL BOOKING!!! --------------------------------
 router.post('/book/:id/', (req, res) => {
 
-  console.log(req.user);
+  // console.log(req.user.from);
+  // console.log(req.body.user.from);
+  // console.log(req.body);
+
+  saveBooking(req.body, req.user)
+
+  var thepid = req.url.split('/');
+  console.log(thepid[2]);
   // console.log(req);
   // var postID = req.url.split('/');
 
@@ -228,8 +241,8 @@ router.post('/book/:id/', (req, res) => {
   //
   // }else {
     res.status(200).json({
-      success: false,
-      message: 'No listing found.',
+      success: true,
+      message: 'But it is not saved in the database yet!',
     });
   // }
 });
@@ -380,7 +393,5 @@ router.route('/add').post((req, res) => {
   }
 
 });
-
-
 
 module.exports = router;

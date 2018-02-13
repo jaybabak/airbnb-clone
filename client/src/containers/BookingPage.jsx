@@ -18,7 +18,6 @@ class BookingPage extends React.Component {
       user: {},
       successMsg: '',
       errors: {},
-      todaysDate: ''
     };
 
     this.changeUser = this.changeUser.bind(this);
@@ -61,28 +60,8 @@ class BookingPage extends React.Component {
 
 
     bookThis.then((success) => {
-      
-      var pid = window.location.href.split('/');
-      console.log(pid[4]);
 
-      const xhr = new XMLHttpRequest();
-      xhr.open('post', '/api/book/' + pid[4]);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      // set the authorization HTTP header
-      xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-      xhr.responseType = 'json';
-      xhr.addEventListener('load', () => {
-        if (xhr.status === 200) {
-          // this.setState({
-          //   data: xhr.response.postData[0],
-          //   from: xhr.response.postData[0].available.from,
-          //   to: xhr.response.postData[0].available.to
-          // });
-          console.log(xhr.response)
-          // resolve(this.state.user._id);
-        }
-      });
-      xhr.send();
+
 
     });
 
@@ -120,56 +99,37 @@ class BookingPage extends React.Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    // this.setState({
-    //   user: {
-    //     city: 'O',
-    //     guests: '2',
-    //     type: '3'
-    //   },
-    // });
-
-
     console.log(this.state.user);
-    // create a string for an HTTP body message
-    // const user = encodeURIComponent(this.state.user);
-    // const city = encodeURIComponent(this.state.user.city);
-    // const guests = encodeURIComponent(this.state.user.guests);
-    // const type = encodeURIComponent(this.state.user.type);
-    // const email = encodeURIComponent(this.state.user.email);
-    // const avaFrom = encodeURIComponent(this.state.user.from);
-    // const avaTo = encodeURIComponent(this.state.user.to);
-    // const uid = encodeURIComponent(this.state.user._id);
-    // const formData = `email=${email}&city=${city}&guests=${guests}&type=${type}&uid=${uid}&from=${avaFrom}&to=${avaTo}`;
-    // // const formData = `data=false`;
-    //
-    // // console.log(this.state.user._id);
-    //
-    // const xhr3 = new XMLHttpRequest();
-    // xhr3.open('post', 'api/add');
-    // xhr3.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // xhr3.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    // xhr3.responseType = 'json';
-    // xhr3.addEventListener('load', () => {
-    //   if (xhr3.status === 200) {
-    //     // success
-    //     console.log(xhr3);
-    //     this.setState({
-    //       successMsg: xhr3.response
-    //     });
-    //
-    //   } else if (xhr3.status === 400) {
-    //     // failure
-    //     const errors = xhr3.response.errors ? xhr3.response.errors : {};
-    //     errors.summary = xhr3.response.message;
-    //
-    //     console.log(errors);
-    //
-    //     this.setState({
-    //       errors
-    //     });
-    //   }
-    // });
-    // xhr3.send(formData);
+
+    const thepid = window.location.href.split('/');
+    console.log(thepid[4]);
+
+    const resFrom = encodeURIComponent(this.state.user.from);
+    const resTo = encodeURIComponent(this.state.user.to);
+    const pid = encodeURIComponent(thepid[4]);
+
+    const formData = `pid=${pid}&from=${resFrom}&to=${resTo}`;
+
+    const xhr2 = new XMLHttpRequest();
+    xhr2.open('post', '/api/book/' + thepid[4]);
+    xhr2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // set the authorization HTTP header
+    xhr2.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr2.responseType = 'json';
+    xhr2.addEventListener('load', () => {
+      if (xhr2.status === 200) {
+        // this.setState({
+        //   data: xhr2.response.postData[0],
+        //   from: xhr2.response.postData[0].available.from,
+        //   to: xhr2.response.postData[0].available.to
+        // });
+        console.log(xhr2.response)
+        // resolve(this.state.user._id);
+      }
+    });
+    xhr2.send(formData);
+
+
   }
 
 
@@ -194,7 +154,7 @@ class BookingPage extends React.Component {
   }
 
   onSelect(event, date) {
-    // console.log(event + date);
+    console.log(event + date);
     const xd = this.formatDate(date);
     const user2 = this.state.user;
     // console.log(user2);
@@ -211,7 +171,7 @@ class BookingPage extends React.Component {
     // console.log(event + date);
     const xd2 = this.formatDate(date);
     const user3 = this.state.user;
-    // console.log(user2);
+    // console.log(user3);
 
     user3['to'] = xd2;
     console.log(user3);
