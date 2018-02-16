@@ -7,10 +7,8 @@ const BookingsSchema = new mongoose.Schema({
 
   pid: { type: Schema.Types.ObjectId, required: true },
   uid: { type: Schema.Types.ObjectId, required: true },
-  reserved: {
-    from: Date,
-    to: Date,
-  },
+  from: Date,
+  to: Date,
 
 });
 

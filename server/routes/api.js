@@ -67,8 +67,10 @@ function saveListing(listing, users){
   // console.log(listing.to);
   // console.log(new Date(listing.to));
 
-  const from = new Date(listing.from);
-  const to = new Date(listing.to);
+  // const from = new Date(listing.from);
+  // const to = new Date(listing.to);
+  const from = listing.from;
+  const to = listing.to;
   // console.log(from + '////' + to)
 
   nodeObject = {
@@ -123,57 +125,95 @@ function saveListing(listing, users){
 
 }
 
-function saveBooking(booking, pid, user) {
-
-  // console.log(booking);
-  // console.log(pid);
-
-
+function saveBooking(booking, pids, user) {
 
   let nodeObject = {};
   let problem = false;
 
-
+  console.log(booking.from);
+  console.log(booking.to);
 
   const from = new Date(booking.from);
   const to = new Date(booking.to);
+  // //
+  // const from = booking.from;
+  // const to = booking.to;
+  //
   console.log(from);
   console.log(to);
-  console.log(pid);
-  console.log(user._id);
+
+  // var dateArrayFrom = from.split('-');
+  // var serializedFrom = dateArrayFrom[0]+dateArrayFrom[1]+dateArrayFrom[2];
+  //
+  // var dateArrayTo = to.split('-');
+  // var serializedTo = dateArrayTo[0]+dateArrayTo[1]+dateArrayTo[2];
+
+  // console.log(serializedTo);
+
 
   nodeObject = {
-    pid: pid,
+    pid: pids,
     uid: user._id,
-    reserved: {
-      from: from,
-      to: to,
-    }
+    from: from,
+    to: to,
   };
 
   // console.log(nodeObject);
 
+
   let postObject = new Bookings(nodeObject);
 
+  //---------------------------------------------
+  // SAVES THE nodeObject
+  // //
+  // var saved = postObject.save(function (err){
+  //
+  //   if(err){
+  //
+  //     problem = true;
+  //
+  //     // console.log(err);
+  //     return problem;
+  //   }else {
+  //
+  //     problem = false;
+  //
+  //     return problem;
+  //   }
+  //
+  // });
 
-  var saved = postObject.save(function (err){
+  // console.log(saved);
 
-    if(err){
 
-      problem = true;
+  //DO CHECK HERE IF FROM AND TO ARE ALREADY BOOKED WITH THAT PID
+  //QUERY NOT BEING USED
+  // reserved: {
+  //   $not: {
+  //     from: {$lte: Date(to)},
+  //     to: {$gte: Date(from)}
+  //   }
+  // }
 
-      // console.log(err);
-      return problem;
-    }else {
+  let newID = mongoose.Types.ObjectId(pids);
 
-      problem = false;
-
-      return problem;
+  const testQuery = Bookings.find({
+    pid: newID,
+    from: {$lte: to},
+    to: {$gte: from}
+  }, function (err, row) {
+    if (err){
+      return err
     }
 
+    // console.log(row);
+    console.log('\n\n\n------------------------------------ QUERY DATA START');
+    console.log(row);
+    console.log('\n\n\n------------------------------------ QUERY DATA END');
+
+    // allUserListings[0] = "";
   });
 
-  console.log(saved);
 
 }
 

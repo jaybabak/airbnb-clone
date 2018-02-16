@@ -84,7 +84,8 @@ class BookingPage extends React.Component {
     if(mm<10){
         mm='0'+mm;
     }
-    return ev = mm+'-'+dd+'-'+yyyy;
+    // return ev = mm+'-'+dd+'-'+yyyy;
+    return ev = yyyy+'-'+mm+'-'+dd;
     // console.log(today);
 
   }
