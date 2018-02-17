@@ -3,8 +3,6 @@ import Auth from '../modules/Auth';
 import PropTypes from 'prop-types';
 import AddPost from '../components/Booking.jsx';
 
-
-
 class BookingPage extends React.Component {
 
   /**
@@ -17,7 +15,7 @@ class BookingPage extends React.Component {
       secretData: '',
       user: {},
       successMsg: '',
-      errors: {},
+      errors: {}
     };
 
     this.changeUser = this.changeUser.bind(this);
@@ -27,14 +25,11 @@ class BookingPage extends React.Component {
 
   }
 
-
   //------NEED TO ADDRESS THIS HERE
   /**
    * This method will be executed after initial rendering.
    */
   componentDidMount() {
-
-
 
     let bookThis = new Promise((resolve, reject) => {
 
@@ -46,10 +41,7 @@ class BookingPage extends React.Component {
       xhr.responseType = 'json';
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
-          this.setState({
-            user: xhr.response.user,
-            secretData: xhr.response.message,
-          });
+          this.setState({user: xhr.response.user, secretData: xhr.response.message});
         }
       });
       xhr.send();
@@ -58,39 +50,27 @@ class BookingPage extends React.Component {
 
     });
 
-
-    bookThis.then((success) => {
-
-
-
-    });
-
+    bookThis.then((success) => {});
 
   }
 
-
-  formatDate(ev){
-
-    // console.log(ev.getDate());
-
+  formatDate(ev) {
 
     var dd = ev.getDate();
-    var mm = ev.getMonth()+1; //January is 0!
-
+    var mm = ev.getMonth() + 1; //January is 0!
     var yyyy = ev.getFullYear();
-    if(dd<10){
-        dd='0'+dd;
-    }
-    if(mm<10){
-        mm='0'+mm;
-    }
-    // return ev = mm+'-'+dd+'-'+yyyy;
-    return ev = yyyy+'-'+mm+'-'+dd;
-    // console.log(today);
 
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+
+    return ev = yyyy + '-' + mm + '-' + dd;
   }
 
-//LEFT HEREE
+  //LEFT HEREE
   /**
    * Process the form.
    *
@@ -130,11 +110,9 @@ class BookingPage extends React.Component {
     });
     xhr2.send(formData);
 
-
   }
 
-
-//issue can be here with the storing of data since this function is not
+  //issue can be here with the storing of data since this function is not
 
   /**
    * Change the user object.
@@ -147,10 +125,7 @@ class BookingPage extends React.Component {
     const user = this.state.user;
     user[field] = event.target.value;
 
-    this.setState({
-      user
-    });
-
+    this.setState({user});
 
   }
 
@@ -163,9 +138,7 @@ class BookingPage extends React.Component {
     user2['from'] = xd;
     console.log(user2);
 
-    this.setState({
-      user2
-    });
+    this.setState({user2});
   }
 
   onSelectTo(event, date) {
@@ -177,27 +150,21 @@ class BookingPage extends React.Component {
     user3['to'] = xd2;
     console.log(user3);
 
-    this.setState({
-      user3
-    });
+    this.setState({user3});
   }
-
 
   /**
    * Render the component.
    */
   render() {
-    return (
-      <div>
-        <AddPost onSubmit={this.bookPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} secretData={this.state.secretData} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} today={this.state.todaysDate}/>
-      </div>
-    );
+    return (<div>
+      <AddPost onSubmit={this.bookPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} secretData={this.state.secretData} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} today={this.state.todaysDate}/>
+    </div>);
   }
 }
 
 BookingPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
-
 
 export default BookingPage;

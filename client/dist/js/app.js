@@ -9937,13 +9937,7 @@ var ListingView = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      // var arr = [];
-      //
       var grabPost = new Promise(function (resolve, reject) {
-
-        // console.log(window.location.href);
-        // var pid = window.location.href.split('/');
-        // console.log(pid[4]);
 
         var lvr = new XMLHttpRequest();
         lvr.open('get', '/api/views/random');
@@ -9959,7 +9953,7 @@ var ListingView = function (_React$Component) {
               data: lvr.response.data
             });
             // resolve(this.state.user._id);
-            console.log(_this2.state.data);
+            // console.log(this.state.data);
           }
         });
         lvr.send();
@@ -17647,7 +17641,7 @@ var Main = function (_Component) {
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   { to: '/' },
-                  'React App'
+                  'Explore New Places!'
                 )
               ),
               this.state.authenticated ? _react2.default.createElement(
@@ -17656,7 +17650,7 @@ var Main = function (_Component) {
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   { to: '/dashboard' },
-                  'Dashboard'
+                  'My Listings'
                 ),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
@@ -53933,10 +53927,7 @@ var BookingPage = function (_React$Component) {
         xhr.responseType = 'json';
         xhr.addEventListener('load', function () {
           if (xhr.status === 200) {
-            _this2.setState({
-              user: xhr.response.user,
-              secretData: xhr.response.message
-            });
+            _this2.setState({ user: xhr.response.user, secretData: xhr.response.message });
           }
         });
         xhr.send();
@@ -53950,22 +53941,18 @@ var BookingPage = function (_React$Component) {
     key: 'formatDate',
     value: function formatDate(ev) {
 
-      // console.log(ev.getDate());
-
-
       var dd = ev.getDate();
       var mm = ev.getMonth() + 1; //January is 0!
-
       var yyyy = ev.getFullYear();
+
       if (dd < 10) {
         dd = '0' + dd;
       }
       if (mm < 10) {
         mm = '0' + mm;
       }
-      // return ev = mm+'-'+dd+'-'+yyyy;
+
       return ev = yyyy + '-' + mm + '-' + dd;
-      // console.log(today);
     }
 
     //LEFT HEREE
@@ -54028,9 +54015,7 @@ var BookingPage = function (_React$Component) {
       var user = this.state.user;
       user[field] = event.target.value;
 
-      this.setState({
-        user: user
-      });
+      this.setState({ user: user });
     }
   }, {
     key: 'onSelect',
@@ -54043,9 +54028,7 @@ var BookingPage = function (_React$Component) {
       user2['from'] = xd;
       console.log(user2);
 
-      this.setState({
-        user2: user2
-      });
+      this.setState({ user2: user2 });
     }
   }, {
     key: 'onSelectTo',
@@ -54058,9 +54041,7 @@ var BookingPage = function (_React$Component) {
       user3['to'] = xd2;
       console.log(user3);
 
-      this.setState({
-        user3: user3
-      });
+      this.setState({ user3: user3 });
     }
 
     /**

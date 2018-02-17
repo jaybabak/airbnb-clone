@@ -19,13 +19,7 @@ class ListingView extends React.Component {
 
   componentDidMount() {
 
-    // var arr = [];
-    //
     let grabPost = new Promise((resolve, reject) => {
-
-      // console.log(window.location.href);
-      // var pid = window.location.href.split('/');
-      // console.log(pid[4]);
 
       const lvr = new XMLHttpRequest();
       lvr.open('get', '/api/views/random');
@@ -41,18 +35,13 @@ class ListingView extends React.Component {
             data: lvr.response.data,
           });
           // resolve(this.state.user._id);
-          console.log(this.state.data);
+          // console.log(this.state.data);
         }
       });
       lvr.send();
 
       resolve()
-
     });
-
-
-
-
   }
 
   render() {

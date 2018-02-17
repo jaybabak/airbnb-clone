@@ -4,19 +4,15 @@ const Posty = mongoose.model('Posty');
 const Bookings = mongoose.model('Bookings');
 const router = new express.Router();
 
-
 //---Form Validation for Add Post
 function validateAddPostForm(formData) {
 
-//NEED TO ADD addditonal validation for numbers min max etc.....
-//VALIDATION HERE AS WELL BEFORE THE SAVE FUNCTION TO MAKE SURE DB DOESN'T CRASH
-
+  //NEED TO ADD addditonal validation for numbers min max etc.....
+  //VALIDATION HERE AS WELL BEFORE THE SAVE FUNCTION TO MAKE SURE DB DOESN'T CRASH
 
   const errors = {};
   let isFormValid = true;
   let message = '';
-
-  // console.log(formData);
 
   if (!formData || typeof formData.city !== 'string' || formData.city.trim().length === 0 || formData.city == 'undefined') {
     isFormValid = false;
@@ -47,31 +43,16 @@ function validateAddPostForm(formData) {
     message = 'Check the form for errors.';
   }
 
-  return {
-    success: isFormValid,
-    message,
-    errors
-  };
+  return {success: isFormValid, message, errors};
 }
 
-function saveListing(listing, users){
-
-  // console.log(users);
-
-  //  LEFT OFF HEREEEEEEE --------
+function saveListing(listing, users) {
 
   let nodeObject = {};
   let problem = false;
 
-
-  // console.log(listing.to);
-  // console.log(new Date(listing.to));
-
-  // const from = new Date(listing.from);
-  // const to = new Date(listing.to);
   const from = listing.from;
   const to = listing.to;
-  // console.log(from + '////' + to)
 
   nodeObject = {
     uid: users._id,
@@ -80,27 +61,20 @@ function saveListing(listing, users){
     type: listing.type,
     available: {
       from: from,
-      to: to,
+      to: to
     }
   };
 
-  // console.log(nodeObject);
-
   let postObject = new Posty(nodeObject);
 
+  var saved = postObject.save(function(err) {
 
-
-
-  var saved = postObject.save(function (err){
-
-    if(err){
-
+    if (err) {
       problem = true;
+      console.log(err);
 
-      // console.log(err);
       return problem;
-    }else {
-
+    } else {
       problem = false;
 
       return problem;
@@ -108,113 +82,60 @@ function saveListing(listing, users){
 
   });
 
-  //code to delete all documents in a collection
-  // Posty.remove({}, function(err){
-  //
-  //   if(err){
-  //     console.log(err);
-  //   }else {
-  //     console.log('------------------------ALL DOCUMENTS REMOVED FROM COLLECTION')
-  //   }
-  //
-  // });
-
   return problem;
-
-
-
 }
 
 function saveBooking(booking, pids, user) {
 
   let nodeObject = {};
-  let problem = false;
-
-  console.log(booking.from);
-  console.log(booking.to);
 
   const from = new Date(booking.from);
   const to = new Date(booking.to);
-  // //
-  // const from = booking.from;
-  // const to = booking.to;
-  //
-  console.log(from);
-  console.log(to);
-
-  // var dateArrayFrom = from.split('-');
-  // var serializedFrom = dateArrayFrom[0]+dateArrayFrom[1]+dateArrayFrom[2];
-  //
-  // var dateArrayTo = to.split('-');
-  // var serializedTo = dateArrayTo[0]+dateArrayTo[1]+dateArrayTo[2];
-
-  // console.log(serializedTo);
-
 
   nodeObject = {
     pid: pids,
     uid: user._id,
     from: from,
-    to: to,
+    to: to
   };
 
-  // console.log(nodeObject);
-
-
   let postObject = new Bookings(nodeObject);
-
-  //---------------------------------------------
-  // SAVES THE nodeObject
-  // //
-  // var saved = postObject.save(function (err){
-  //
-  //   if(err){
-  //
-  //     problem = true;
-  //
-  //     // console.log(err);
-  //     return problem;
-  //   }else {
-  //
-  //     problem = false;
-  //
-  //     return problem;
-  //   }
-  //
-  // });
-
-  // console.log(saved);
-
-
-  //DO CHECK HERE IF FROM AND TO ARE ALREADY BOOKED WITH THAT PID
-  //QUERY NOT BEING USED
-  // reserved: {
-  //   $not: {
-  //     from: {$lte: Date(to)},
-  //     to: {$gte: Date(from)}
-  //   }
-  // }
-
   let newID = mongoose.Types.ObjectId(pids);
 
   const testQuery = Bookings.find({
     pid: newID,
-    from: {$lte: to},
-    to: {$gte: from}
-  }, function (err, row) {
-    if (err){
+    from: {
+      $lte: to
+    },
+    to: {
+      $gte: from
+    }
+  }, function(err, row) {
+    if (err) {
       return err
     }
 
     // console.log(row);
-    console.log('\n\n\n------------------------------------ QUERY DATA START');
-    console.log(row);
-    console.log('\n\n\n------------------------------------ QUERY DATA END');
 
-    // allUserListings[0] = "";
+    if (row && row.length > 0) {
+
+      console.log('\n\n\n------------------------------------ QUERY DATA START');
+      console.log(row);
+      console.log('\n\n\n------------------------------------ QUERY DATA END');
+      // console.log(isBooked);
+      // console.log('Not Booked');
+    } else {
+      // ---------------------------------------------
+      // SAVES THE nodeObject
+      //
+      var saved = postObject.save(function(err) {
+        if (err) {
+          console.log(err);
+          return err;
+        }
+      });
+    }
   });
-
-
 }
 
 router.get('/dashboard', (req, res) => {
@@ -229,66 +150,42 @@ router.get('/listings', (req, res) => {
 
   // console.log(req.user._id);
 
-  if(req.user._id != null || req.user._id != ''){
+  if (req.user._id != null || req.user._id != '') {
     // const myLists = getUserLists(req.body.uid);
     // console.log(myLists);
-    const all = Posty.find({ uid: req.user._id }, function (err, row) {
-      if (err){
+    const all = Posty.find({
+      uid: req.user._id
+    }, function(err, row) {
+      if (err) {
         return err
       }
 
-      // console.log(row);
-
-      res.status(200).json({
-        message: "Sucess",
-        user: req.user,
-        data: row
-      });
-
-      // allUserListings[0] = "";
+      res.status(200).json({message: "Sucess", user: req.user, data: row});
     });
 
-  }else {
-    res.status(200).json({
-      success: false,
-      message: 'No listings found.',
-    });
+  } else {
+    res.status(200).json({success: false, message: 'No listings found.'});
   }
 });
 
-
 router.get('/listing/:id', (req, res) => {
 
-  // console.log(req.user);
-  // console.log(req);
   var postID = req.url.split('/');
 
+  if (postID !== 'null') {
 
-  if(postID !== 'null'){
-
-    // console.log(postID[2]);
-    // const myLists = getUserLists(req.body.uid);
-    // console.log(myLists);
-    const all = Posty.find({ _id: postID[2] }, function (err, item) {
-      if (err){
+    const all = Posty.find({
+      _id: postID[2]
+    }, function(err, item) {
+      if (err) {
         return err
       }
-    //
-      // console.log(item);
-    //
-      res.status(200).json({
-        message: "Success",
-        postData: item
-      });
-    //
-    //   // allUserListings[0] = "";
+
+      res.status(200).json({message: "Success", postData: item});
     });
 
-  }else {
-    res.status(200).json({
-      success: false,
-      message: 'No listing found.',
-    });
+  } else {
+    res.status(200).json({success: false, message: 'No listing found.'});
   }
 });
 
@@ -300,184 +197,68 @@ router.post('/book/:id/', (req, res) => {
   // console.log(req.body);
 
   var thepid = req.url.split('/');
+  const BookingResult = saveBooking(req.body, thepid[2], req.user);
 
-  saveBooking(req.body, thepid[2], req.user);
+  res.status(200).json({success: true, message: 'But it is not saved in the database yet!'});
 
-  // console.log(thepid[2]);
-  // console.log(req);
-  // var postID = req.url.split('/');
-
-  // if(postID !== 'null'){
-  //
-  //   // console.log(postID[2]);
-  //   // const myLists = getUserLists(req.body.uid);
-  //   // console.log(myLists);
-  //   const all = Posty.find({ _id: postID[2] }, function (err, item) {
-  //     if (err){
-  //       return err
-  //     }
-  //   //
-  //     // console.log(item);
-  //   //
-  //     res.status(200).json({
-  //       message: "You're authorized to see this secret message.",
-  //       postData: item
-  //     });
-  //   //
-  //   //   // allUserListings[0] = "";
-  //   });
-  //
-  // }else {
-    res.status(200).json({
-      success: true,
-      message: 'But it is not saved in the database yet!',
-    });
-  // }
 });
-
-
 
 router.get('/views/random', (req, res) => {
 
-  // console.log(req.user._id);
-
-
-
-  // console.log(req.body);
-
-
-  if(req != null){
-    // const myLists = getUserLists(req.body.uid);
-    // console.log(myLists);
+  if (req != null) {
 
     const getAuthor = Posty.aggregate([
-        // Unwind the source
-        {
-          $match: {}
-        },
-        {
-          //creating a join to the users enitity and grabbing authors name
-            $lookup: {
-              from: 'users',
-              localField: 'uid',
-              foreignField: '_id',
-              as: 'author'
-            }
-        },
-        {
-          //removing fields from the returned results query
-            $project: {
-              "author.email": 0,
-              "author.password": 0,
-              "author._id": 0,
-            },
-
+      // Unwind the source
+      {
+        $match: {}
+      }, {
+        //creating a join to the users enitity and grabbing authors name
+        $lookup: {
+          from: 'users',
+          localField: 'uid',
+          foreignField: '_id',
+          as: 'author'
         }
-    ], function(errs, rows){
+      }, {
+        //removing fields from the returned results query
+        $project: {
+          "author.email": 0,
+          "author.password": 0,
+          "author._id": 0
+        }
+      }
+    ], function(errs, rows) {
 
-      if (errs){
+      if (errs) {
         return errs
       }
-      // console.log('-----------------////----////------');
-      // console.log(rows);
 
-      res.status(200).json({
-        message: "Success",
-        data: rows
-      });
+      res.status(200).json({message: "Success", data: rows});
 
     });
-
-
-    // console.log(getAuthor);
-
-
-    // existing woring
-    // const viewsRandom = Posty.find({}, function (err, row) {
-    //   if (err){
-    //     return err
-    //   }
-    //
-    //   console.log(row);
-    //
-    //   res.status(200).json({
-    //     message: "Success",
-    //     data: row
-    //   });
-    //
-    //   // allUserListings[0] = "";
-    // }).limit(25);
-
-
     //updating uid to object ID
-    const viewsRandom = Posty.find({}, function (err, row) {
-      if (err){
+    const viewsRandom = Posty.find({}, function(err, row) {
+      if (err) {
         return err
       }
-
-      // DONT THINK ITS NEEDED BUT COMMENT BACK IN IF SHIT STOPS WORKING
-      //
-      // for(var z=0; z<row.length; z++){
-      //   // console.log(row[z].uid);
-      //
-      //   row[z].uid = mongoose.Types.ObjectId(row[z].uid);
-      //   // row[z].save();
-      // }
-
-      //
-      // res.status(200).json({
-      //   message: "Success",
-      //   data: row
-      // });
-
-      // allUserListings[0] = "";
     });
 
-  }else {
-    res.status(200).json({
-      success: false,
-      message: 'No listings found.',
-    });
+  } else {
+    res.status(200).json({success: false, message: 'No listings found.'});
   }
 });
 
-
-//LEFT OFF HEREE ------------------------------------------
-// creatinG dynamic route for each user to view only his own listings
-
-// router.get('/dashboard', (req, res) => {
-//   res.status(200).json({
-//     message: "You're authorized to see this secret message.",
-//     // user values passed through from auth middleware
-//     user: req.user
-//   });
-// });
-
 router.route('/add').post((req, res) => {
 
-  // console.log(req.body);
-  // res.status(200).send('OK');
   const formResults = validateAddPostForm(req.body);
 
-  // const postResults = saveListing(req.body, req.user);
-  // console.log(postResults);
-
   if (!formResults.success) {
-    return res.status(400).json({
-      success: false,
-      message: formResults.message,
-      errors: formResults.errors
-    });
-  }else if(formResults.success){
+    return res.status(400).json({success: false, message: formResults.message, errors: formResults.errors});
+  } else if (formResults.success) {
 
     saveListing(req.body, req.user)
 
-    return res.status(200).json({
-      success: true,
-      message: 'You have successfully added a new listing!',
-      user: req.user,
-      post: req.body,
-    });
+    return res.status(200).json({success: true, message: 'You have successfully added a new listing!', user: req.user, post: req.body});
   }
 
 });

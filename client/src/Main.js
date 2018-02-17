@@ -83,11 +83,11 @@ class Main extends Component {
           <div style={{ backgroundColor: '#1A1B25', paddingBottom: '100px' }}>
             <div className="top-bar">
               <div className="top-bar-left">
-                <Link to="/">React App</Link>
+                <Link to="/">Explore New Places!</Link>
               </div>
               {this.state.authenticated ? (
                 <div className="top-bar-right">
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard">My Listings</Link>
                   <Link to="/add-post">Add Post</Link>
                   <Link to="/logout">Log out</Link>
                 </div>
