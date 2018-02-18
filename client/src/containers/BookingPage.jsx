@@ -16,7 +16,8 @@ class BookingPage extends React.Component {
       user: {},
       successMsg: '',
       errors: {},
-      data: {}
+      data: {},
+      bookingData: {}
     };
 
     this.changeUser = this.changeUser.bind(this);
@@ -49,7 +50,6 @@ class BookingPage extends React.Component {
 
       const thepid = window.location.href.split('/');
       const pid = encodeURIComponent(thepid[4]);
-      // const formData = `pid=${pid}`;
 
       const xhrGetPost = new XMLHttpRequest();
       xhrGetPost.open('get', '/api/book/' + thepid[4]);
@@ -65,6 +65,21 @@ class BookingPage extends React.Component {
         }
       });
       xhrGetPost.send();
+
+      const xhrGetBookings = new XMLHttpRequest();
+      xhrGetBookings.open('get', '/api/bookings/' + thepid[4]);
+      xhrGetBookings.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // set the authorization HTTP header
+      xhrGetBookings.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+      xhrGetBookings.responseType = 'json';
+      xhrGetBookings.addEventListener('load', () => {
+        if (xhrGetBookings.status === 200) {
+          const bc = xhrGetBookings.response.bookingData;
+          this.setState({bookingData: bc});
+          console.log(this.state.bookingData);
+        }
+      });
+      xhrGetBookings.send();
 
       resolve('Hello')
     });

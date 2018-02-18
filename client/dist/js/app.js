@@ -53810,6 +53810,9 @@ var Booking = function Booking(_ref) {
       ),
       ', you are very close to completing your reservation.'
     ),
+    _react2.default.createElement(_Map2.default, {
+      google: window.google, styles: { width: '100%', position: 'inherit' }
+    }),
     _react2.default.createElement(
       'form',
       { action: '/', onSubmit: onSubmit },
@@ -53915,7 +53918,8 @@ var BookingPage = function (_React$Component) {
       user: {},
       successMsg: '',
       errors: {},
-      data: {}
+      data: {},
+      bookingData: {}
     };
 
     _this.changeUser = _this.changeUser.bind(_this);
@@ -53954,7 +53958,6 @@ var BookingPage = function (_React$Component) {
 
         var thepid = window.location.href.split('/');
         var pid = encodeURIComponent(thepid[4]);
-        // const formData = `pid=${pid}`;
 
         var xhrGetPost = new XMLHttpRequest();
         xhrGetPost.open('get', '/api/book/' + thepid[4]);
@@ -53970,6 +53973,21 @@ var BookingPage = function (_React$Component) {
           }
         });
         xhrGetPost.send();
+
+        var xhrGetBookings = new XMLHttpRequest();
+        xhrGetBookings.open('get', '/api/bookings/' + thepid[4]);
+        xhrGetBookings.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // set the authorization HTTP header
+        xhrGetBookings.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
+        xhrGetBookings.responseType = 'json';
+        xhrGetBookings.addEventListener('load', function () {
+          if (xhrGetBookings.status === 200) {
+            var bc = xhrGetBookings.response.bookingData;
+            _this2.setState({ bookingData: bc });
+            console.log(_this2.state.bookingData);
+          }
+        });
+        xhrGetBookings.send();
 
         resolve('Hello');
       });
@@ -54146,10 +54164,46 @@ var MapContainer = exports.MapContainer = function (_React$Component) {
 
   _createClass(MapContainer, [{
     key: 'render',
+
+
+    // constructor(props) {
+    //    super(props);
+    //    console.log(this);
+    //
+    //    this.state = {
+    //      locCity: props.cityName
+    //    }
+    //
+    //    this.
+    //
+    //  }
+    //
+    //
+    // componentDidMount() {
+    //
+    //   //
+    //   // console.log(this);
+    //
+    //   this.setState({
+    //     locCity: this.props.cityName
+    //   });
+    //
+    //
+    //   console.log(this.state.locCity);
+    //
+    //
+    // }
+
     value: function render() {
+
       return _react2.default.createElement(
         _googleMapsReact.Map,
-        { initialCenter: { lat: 49.854885, lng: -88.081807 }, zoom: 14, style: { width: '100%', height: '325px', display: 'block', bottom: '0' }, google: this.props.google },
+        {
+          initialCenter: { lat: 40.854885, lng: -88.081807 },
+          zoom: 14,
+          style: { width: '100%', height: '325px', display: 'block', position: 'static' },
+          className: 'mappy',
+          google: this.props.google },
         _react2.default.createElement(_googleMapsReact.Marker, { name: 'Current location' })
       );
     }

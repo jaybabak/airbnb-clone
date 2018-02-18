@@ -214,20 +214,51 @@ router.post('/book/:id/', (req, res) => {
 router.get('/book/:id/', (req, res) => {
 
 
-  console.log(req.url.split('/')[2]);
+  // console.log(req.url.split('/')[2]);
 
   const pid = req.url.split('/')[2];
 
   if (pid !== 'undefined') {
+
     const all = Posty.find({
       _id: pid
     }, function(err, item) {
       if (err) {
         return err
       }
-
-      res.status(200).json({message: "Success", postData: item});
+      res.status(200).json({message: "Success Item", postData: item});
     });
+
+    // res.status(200).json({message: "Success Item", postData: payLoadP, bookingData:});
+
+  } else {
+    res.status(200).json({success: false, message: 'Could not load the listing. Error.'});
+  }
+
+});
+
+
+router.get('/bookings/:id/', (req, res) => {
+
+
+  // console.log(req.url.split('/')[2]);
+
+  const pid = req.url.split('/')[2];
+
+  if (pid !== 'undefined') {
+
+    const resDates = Bookings.find({
+      pid: pid
+    }, function(err, resItems) {
+      if (err) {
+        return err
+      }
+      console.log(resItems);
+      res.status(200).json({message: "Success", bookingData: resItems});
+    });
+
+    console.log(resDates);
+
 
   } else {
     res.status(200).json({success: false, message: 'Could not load the listing. Error.'});
@@ -237,7 +268,7 @@ router.get('/book/:id/', (req, res) => {
 
 router.get('/views/random', (req, res) => {
 
-  console.log(req.user);
+  // console.log(req.user);
 
   if (req != null) {
 

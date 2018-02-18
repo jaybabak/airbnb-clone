@@ -65,3 +65,13 @@ a:hover {
   padding: 0 16px;
   color: green;
 }
+
+.mappy {
+  position: static!important;
+  /*width:  */
+  display: block!important;
+  height: 325px!important;
+  display:block!important;
+  width: 100%!important;
+
+}

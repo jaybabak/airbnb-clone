@@ -21,9 +21,9 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
 
 
     {/* IMPLEMENTED GOOGLE MAPS LIBRARY INTEGRATION */}
-    {/* <MapContainer
-      google={window.google}
-    /> */}
+    <MapContainer
+      google={window.google} styles={{width:'100%', position: 'inherit'}}
+    />
 
     <form action="/" onSubmit={onSubmit}>
       <h2 style={{ color: 'cornflowerblue' }} className="card-heading">1/1: Book Your Stay for <strong style={{ color: 'black', textDecoration: 'underline'}}>{pidData.city}</strong></h2>
