@@ -53932,6 +53932,23 @@ var BookingPage = function (_React$Component) {
         });
         xhr.send();
 
+        var thepid = window.location.href.split('/');
+        var pid = encodeURIComponent(thepid[4]);
+
+        var xhrGetPost = new XMLHttpRequest();
+        xhrGetPost.open('get', '/api/book/' + pid);
+        xhrGetPost.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        // set the authorization HTTP header
+        xhrGetPost.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
+        xhrGetPost.responseType = 'json';
+        xhrGetPost.addEventListener('load', function () {
+          if (xhrGetPost.status === 200) {
+            console.log(xhrGetPost.response);
+            // this.setState({user: xhrGetPost.response.user, secretData: xhrGetPost.response.message});
+          }
+        });
+        xhrGetPost.send();
+
         resolve('Hello');
       });
 
@@ -53980,7 +53997,7 @@ var BookingPage = function (_React$Component) {
       var formData = 'pid=' + pid + '&from=' + resFrom + '&to=' + resTo;
 
       var xhr2 = new XMLHttpRequest();
-      xhr2.open('post', '/api/book/' + thepid[4]);
+      xhr2.open('post', '/api/book/' + pid);
       xhr2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       // set the authorization HTTP header
       xhr2.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
@@ -53998,8 +54015,6 @@ var BookingPage = function (_React$Component) {
       });
       xhr2.send(formData);
     }
-
-    //issue can be here with the storing of data since this function is not
 
     /**
      * Change the user object.

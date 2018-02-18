@@ -192,22 +192,40 @@ router.get('/listing/:id', (req, res) => {
 //ROUTE FOR INVIDUAL BOOKING!!! --------------------------------
 router.post('/book/:id/', (req, res) => {
 
-  // console.log(req.user.from);
-  // console.log(req.body.user.from);
-  // console.log(req);
-
-  var thepid = req.url.split('/');
+  var upid = req.body.pid;
 
   if(req.body.from != 'undefined'){
 
     console.log('Successful booking');
-    const BookingResult = saveBooking(req.body, thepid[2], req.user);
+    console.log(upid);
+    const BookingResult = saveBooking(req.body, req.body.pid, req.user);
     res.status(200).json({success: true, message: 'Booking submitted cant tell you if its already booked'});
 
   }else{
     console.log('Empty dates recieved');
+        console.log(upid);
     res.status(400).json({success: false, message: 'Must enter the "From" date and "To" date to book.'});
   }
+});
+
+router.get('/book/:id/', (req, res) => {
+
+  res.status(200).json({success: true, message: 'Information about booking will be sent here.'});
+
+  // var upid = req.body.pid;
+  //
+  // if(req.body.from != 'undefined'){
+  //
+  //   console.log('Successful booking');
+  //   console.log(upid);
+  //   const BookingResult = saveBooking(req.body, req.body.pid, req.user);
+  //   res.status(200).json({success: true, message: 'Booking submitted cant tell you if its already booked'});
+  //
+  // }else{
+  //   console.log('Empty dates recieved');
+  //       console.log(upid);
+  //   res.status(400).json({success: false, message: 'Must enter the "From" date and "To" date to book.'});
+  // }
 });
 
 router.get('/views/random', (req, res) => {
