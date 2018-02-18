@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+import MapContainer from '../components/Map.jsx';
 
 const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, onSelect, onSelectTo, dateHelper, postData }) => (
 
@@ -15,7 +16,14 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
       title="Fill out this super short form!"
     />
 
+
 <CardText style={{ fontSize: '16px', color: 'black' }}><strong>{user.name}</strong>, you are very close to completing your reservation.</CardText>
+
+
+    {/* IMPLEMENTED GOOGLE MAPS LIBRARY INTEGRATION */}
+    {/* <MapContainer
+      google={window.google}
+    /> */}
 
     <form action="/" onSubmit={onSubmit}>
       <h2 style={{ color: 'cornflowerblue' }} className="card-heading">STEP 1/1: Book Your Stay for <strong style={{ color: 'black', textDecoration: 'underline'}}>{pidData.city}</strong></h2>
@@ -37,6 +45,7 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
       </div>
 
     </form>
+
   </Card>
 
 );
