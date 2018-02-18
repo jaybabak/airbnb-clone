@@ -26,7 +26,7 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
     /> */}
 
     <form action="/" onSubmit={onSubmit}>
-      <h2 style={{ color: 'cornflowerblue' }} className="card-heading">STEP 1/1: Book Your Stay for <strong style={{ color: 'black', textDecoration: 'underline'}}>{pidData.city}</strong></h2>
+      <h2 style={{ color: 'cornflowerblue' }} className="card-heading">1/1: Book Your Stay for <strong style={{ color: 'black', textDecoration: 'underline'}}>{pidData.city}</strong></h2>
 
       <CardText style={{ fontSize: '16px', color: 'green' }}><strong>{success.message}</strong></CardText>
 
@@ -41,7 +41,7 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
       </div>
 
       <div className="button-line">
-        <RaisedButton type="submit" label="Add New Listing" primary />
+        <RaisedButton type="submit" label="Book It!" primary />
       </div>
 
     </form>

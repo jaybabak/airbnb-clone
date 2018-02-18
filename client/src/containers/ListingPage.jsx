@@ -52,6 +52,7 @@ class ListingPage extends React.Component {
             from: xhr.response.postData[0].available.from,
             to: xhr.response.postData[0].available.to
           });
+          console.log(this.state.data);
           // resolve(this.state.user._id);
         }
       });
@@ -73,6 +74,7 @@ class ListingPage extends React.Component {
             title={this.state.data.city}
             subtitle={this.state.data.type}
           />
+          <Link to={'/book/' + this.state.data._id}><FlatButton style={{ backgroundColor: '#E0FF4F', color: 'black' }} label="Book This Now!" /></Link>
           <PostImage/>
 
           <CardTitle title='DETAILS'/>

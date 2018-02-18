@@ -18882,6 +18882,7 @@ var ListingPage = function (_React$Component) {
               from: xhr.response.postData[0].available.from,
               to: xhr.response.postData[0].available.to
             });
+            console.log(_this2.state.data);
             // resolve(this.state.user._id);
           }
         });
@@ -18906,6 +18907,11 @@ var ListingPage = function (_React$Component) {
             title: this.state.data.city,
             subtitle: this.state.data.type
           }),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/book/' + this.state.data._id },
+            _react2.default.createElement(_FlatButton2.default, { style: { backgroundColor: '#E0FF4F', color: 'black' }, label: 'Book This Now!' })
+          ),
           _react2.default.createElement(_PostImage2.default, null),
           _react2.default.createElement(_Card.CardTitle, { title: 'DETAILS' }),
           _react2.default.createElement(
@@ -53810,7 +53816,7 @@ var Booking = function Booking(_ref) {
       _react2.default.createElement(
         'h2',
         { style: { color: 'cornflowerblue' }, className: 'card-heading' },
-        'STEP 1/1: Book Your Stay for ',
+        '1/1: Book Your Stay for ',
         _react2.default.createElement(
           'strong',
           { style: { color: 'black', textDecoration: 'underline' } },
@@ -53840,7 +53846,7 @@ var Booking = function Booking(_ref) {
       _react2.default.createElement(
         'div',
         { className: 'button-line' },
-        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Add New Listing', primary: true })
+        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Book It!', primary: true })
       )
     )
   );
