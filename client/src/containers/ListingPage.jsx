@@ -3,6 +3,7 @@ import { Card, CardTitle, CardText, CardHeader } from 'material-ui/Card';
 import Auth from '../modules/Auth';
 import Listing from '../components/Listing.jsx';
 import PostImage from '../containers/PostImage.jsx';
+// import BookingPage from '../containers/BookingPage.jsx';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -93,7 +94,7 @@ class ListingPage extends React.Component {
 
         </Card>
 
-        {/* <ListingView user={this.state.user} content={this.state.user} /> */}
+        <br/>
 
       </div>
     );

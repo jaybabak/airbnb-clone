@@ -1,7 +1,7 @@
 import React from 'react';
 import Auth from '../modules/Auth';
 import PropTypes from 'prop-types';
-import AddPost from '../components/Booking.jsx';
+import Booking from '../components/Booking.jsx';
 
 class BookingPage extends React.Component {
 
@@ -15,7 +15,8 @@ class BookingPage extends React.Component {
       secretData: '',
       user: {},
       successMsg: '',
-      errors: {}
+      errors: {},
+      data: {}
     };
 
     this.changeUser = this.changeUser.bind(this);
@@ -48,26 +49,24 @@ class BookingPage extends React.Component {
 
       const thepid = window.location.href.split('/');
       const pid = encodeURIComponent(thepid[4]);
+      // const formData = `pid=${pid}`;
 
       const xhrGetPost = new XMLHttpRequest();
-      xhrGetPost.open('get', '/api/book/' + pid);
+      xhrGetPost.open('get', '/api/book/' + thepid[4]);
       xhrGetPost.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       // set the authorization HTTP header
       xhrGetPost.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
       xhrGetPost.responseType = 'json';
       xhrGetPost.addEventListener('load', () => {
         if (xhrGetPost.status === 200) {
-          console.log(xhrGetPost.response);
-          // this.setState({user: xhrGetPost.response.user, secretData: xhrGetPost.response.message});
+          const ab = xhrGetPost.response.postData[0];
+          this.setState({data: ab});
+          console.log(this.state.data);
         }
       });
       xhrGetPost.send();
 
-
-
-
       resolve('Hello')
-
     });
 
     bookThis.then((success) => {});
@@ -100,10 +99,10 @@ class BookingPage extends React.Component {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
-    console.log(this.state.user);
+    // console.log(this.state.user);
 
     const thepid = window.location.href.split('/');
-    console.log(thepid[4]);
+    // console.log(thepid[4]);
 
     const resFrom = encodeURIComponent(this.state.user.from);
     const resTo = encodeURIComponent(this.state.user.to);
@@ -176,7 +175,7 @@ class BookingPage extends React.Component {
    */
   render() {
     return (<div>
-      <AddPost onSubmit={this.bookPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} secretData={this.state.secretData} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} today={this.state.todaysDate}/>
+      <Booking onSubmit={this.bookPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} pidData={this.state.data} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} today={this.state.todaysDate}/>
     </div>);
   }
 }

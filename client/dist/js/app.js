@@ -18827,6 +18827,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import BookingPage from '../containers/BookingPage.jsx';
+
 
 var ListingPage = function (_React$Component) {
   _inherits(ListingPage, _React$Component);
@@ -18949,7 +18951,8 @@ var ListingPage = function (_React$Component) {
             ),
             _react2.default.createElement('br', null)
           )
-        )
+        ),
+        _react2.default.createElement('br', null)
       );
     }
   }]);
@@ -53770,7 +53773,7 @@ var _DatePicker2 = _interopRequireDefault(_DatePicker);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Booking = function Booking(_ref) {
-  var secretData = _ref.secretData,
+  var pidData = _ref.pidData,
       user = _ref.user,
       onChange = _ref.onChange,
       onSubmit = _ref.onSubmit,
@@ -53779,14 +53782,15 @@ var Booking = function Booking(_ref) {
       success = _ref.success,
       onSelect = _ref.onSelect,
       onSelectTo = _ref.onSelectTo,
-      dateHelper = _ref.dateHelper;
+      dateHelper = _ref.dateHelper,
+      postData = _ref.postData;
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
     _react2.default.createElement(_Card.CardTitle, {
       title: 'Fill out this super short form!'
     }),
-    secretData && _react2.default.createElement(
+    _react2.default.createElement(
       _Card.CardText,
       { style: { fontSize: '16px', color: 'black' } },
       _react2.default.createElement(
@@ -53794,7 +53798,7 @@ var Booking = function Booking(_ref) {
         null,
         user.name
       ),
-      ', you are very close to completing your booking.'
+      ', you are very close to completing your reservation.'
     ),
     _react2.default.createElement(
       'form',
@@ -53802,7 +53806,12 @@ var Booking = function Booking(_ref) {
       _react2.default.createElement(
         'h2',
         { style: { color: 'cornflowerblue' }, className: 'card-heading' },
-        'Book Your Stay'
+        'STEP 1/1: Book Your Stay for ',
+        _react2.default.createElement(
+          'strong',
+          { style: { color: 'black', textDecoration: 'underline' } },
+          pidData.city
+        )
       ),
       _react2.default.createElement(
         _Card.CardText,
@@ -53821,8 +53830,8 @@ var Booking = function Booking(_ref) {
           { className: 'field-line' },
           'How long will you be booking your stay'
         ),
-        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to, mode: 'landscape', autoOk: true }),
-        _react2.default.createElement(_DatePicker2.default, { hintText: 'Available To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from, mode: 'landscape', autoOk: true })
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Reserve From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to, mode: 'landscape', autoOk: true }),
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Reserve To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from, mode: 'landscape', autoOk: true })
       ),
       _react2.default.createElement(
         'div',
@@ -53834,7 +53843,7 @@ var Booking = function Booking(_ref) {
 };
 
 Booking.propTypes = {
-  secretData: _propTypes2.default.string.isRequired,
+  pidData: _propTypes2.default.object.isRequired,
   user: _propTypes2.default.object.isRequired,
   onChange: _propTypes2.default.func.isRequired,
   onSubmit: _propTypes2.default.func.isRequired,
@@ -53895,7 +53904,8 @@ var BookingPage = function (_React$Component) {
       secretData: '',
       user: {},
       successMsg: '',
-      errors: {}
+      errors: {},
+      data: {}
     };
 
     _this.changeUser = _this.changeUser.bind(_this);
@@ -53934,17 +53944,19 @@ var BookingPage = function (_React$Component) {
 
         var thepid = window.location.href.split('/');
         var pid = encodeURIComponent(thepid[4]);
+        // const formData = `pid=${pid}`;
 
         var xhrGetPost = new XMLHttpRequest();
-        xhrGetPost.open('get', '/api/book/' + pid);
+        xhrGetPost.open('get', '/api/book/' + thepid[4]);
         xhrGetPost.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         // set the authorization HTTP header
         xhrGetPost.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
         xhrGetPost.responseType = 'json';
         xhrGetPost.addEventListener('load', function () {
           if (xhrGetPost.status === 200) {
-            console.log(xhrGetPost.response);
-            // this.setState({user: xhrGetPost.response.user, secretData: xhrGetPost.response.message});
+            var ab = xhrGetPost.response.postData[0];
+            _this2.setState({ data: ab });
+            console.log(_this2.state.data);
           }
         });
         xhrGetPost.send();
@@ -53985,10 +53997,10 @@ var BookingPage = function (_React$Component) {
       // prevent default action. in this case, action is the form submission event
       event.preventDefault();
 
-      console.log(this.state.user);
+      // console.log(this.state.user);
 
       var thepid = window.location.href.split('/');
-      console.log(thepid[4]);
+      // console.log(thepid[4]);
 
       var resFrom = encodeURIComponent(this.state.user.from);
       var resTo = encodeURIComponent(this.state.user.to);
@@ -54069,7 +54081,7 @@ var BookingPage = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Booking2.default, { onSubmit: this.bookPosts, onChange: this.changeUser, onSelect: this.onSelect, onSelectTo: this.onSelectTo, secretData: this.state.secretData, user: this.state.user, errors: this.state.errors, success: this.state.successMsg, dateHelper: this.formatDate, today: this.state.todaysDate })
+        _react2.default.createElement(_Booking2.default, { onSubmit: this.bookPosts, onChange: this.changeUser, onSelect: this.onSelect, onSelectTo: this.onSelectTo, pidData: this.state.data, user: this.state.user, errors: this.state.errors, success: this.state.successMsg, dateHelper: this.formatDate, today: this.state.todaysDate })
       );
     }
   }]);

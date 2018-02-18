@@ -8,17 +8,17 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 
-const Booking = ({ secretData, user, onChange, onSubmit, payload, errors, success, onSelect, onSelectTo, dateHelper }) => (
+const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, onSelect, onSelectTo, dateHelper, postData }) => (
 
   <Card className="container">
     <CardTitle
       title="Fill out this super short form!"
     />
-  {secretData && <CardText style={{ fontSize: '16px', color: 'black' }}><strong>{user.name}</strong>, you are very close to completing your booking.</CardText>}
 
+<CardText style={{ fontSize: '16px', color: 'black' }}><strong>{user.name}</strong>, you are very close to completing your reservation.</CardText>
 
     <form action="/" onSubmit={onSubmit}>
-      <h2 style={{ color: 'cornflowerblue' }} className="card-heading">Book Your Stay</h2>
+      <h2 style={{ color: 'cornflowerblue' }} className="card-heading">STEP 1/1: Book Your Stay for <strong style={{ color: 'black', textDecoration: 'underline'}}>{pidData.city}</strong></h2>
 
       <CardText style={{ fontSize: '16px', color: 'green' }}><strong>{success.message}</strong></CardText>
 
@@ -27,8 +27,8 @@ const Booking = ({ secretData, user, onChange, onSubmit, payload, errors, succes
         <div className="field-line">
           How long will you be booking your stay
         </div>
-        <DatePicker hintText="Available From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to} mode="landscape" autoOk={true}/>
-        <DatePicker hintText="Available To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from} mode="landscape" autoOk={true}/>
+        <DatePicker hintText="Reserve From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to} mode="landscape" autoOk={true}/>
+        <DatePicker hintText="Reserve To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from} mode="landscape" autoOk={true}/>
 
       </div>
 
@@ -42,7 +42,7 @@ const Booking = ({ secretData, user, onChange, onSubmit, payload, errors, succes
 );
 
 Booking.propTypes = {
-  secretData: PropTypes.string.isRequired,
+  pidData: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

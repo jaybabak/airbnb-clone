@@ -170,6 +170,7 @@ router.get('/listings', (req, res) => {
 
 router.get('/listing/:id', (req, res) => {
 
+  //----need TO ADDRESS THIS QUESTION
   var postID = req.url.split('/');
 
   if (postID !== 'null') {
@@ -208,24 +209,30 @@ router.post('/book/:id/', (req, res) => {
   }
 });
 
+//ROUTE FOR LOADING INFORMATION ABOUT THE POST IN QUESTION
+
 router.get('/book/:id/', (req, res) => {
 
-  res.status(200).json({success: true, message: 'Information about booking will be sent here.'});
 
-  // var upid = req.body.pid;
-  //
-  // if(req.body.from != 'undefined'){
-  //
-  //   console.log('Successful booking');
-  //   console.log(upid);
-  //   const BookingResult = saveBooking(req.body, req.body.pid, req.user);
-  //   res.status(200).json({success: true, message: 'Booking submitted cant tell you if its already booked'});
-  //
-  // }else{
-  //   console.log('Empty dates recieved');
-  //       console.log(upid);
-  //   res.status(400).json({success: false, message: 'Must enter the "From" date and "To" date to book.'});
-  // }
+  console.log(req.url.split('/')[2]);
+
+  const pid = req.url.split('/')[2];
+
+  if (pid !== 'undefined') {
+    const all = Posty.find({
+      _id: pid
+    }, function(err, item) {
+      if (err) {
+        return err
+      }
+
+      res.status(200).json({message: "Success", postData: item});
+    });
+
+  } else {
+    res.status(200).json({success: false, message: 'Could not load the listing. Error.'});
+  }
+
 });
 
 router.get('/views/random', (req, res) => {
