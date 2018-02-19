@@ -59,11 +59,11 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
     <CardText style={{ fontSize: '16px', color: 'lightgrey' }}>See below for dates that have been reserved.</CardText>
 
     <Table selectable={false}>
-      <TableHeader adjustForCheckbox={false}>
-        <TableRow>
-          <TableHeaderColumn>Date Reserved From</TableHeaderColumn>
-          <TableHeaderColumn>Date Reserved Until</TableHeaderColumn>
-          <TableHeaderColumn>Status</TableHeaderColumn>
+      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+        <TableRow style={{backgroundColor: '#ea2e3d'}}>
+          <TableHeaderColumn style={{color:'white'}}>Date Reserved From</TableHeaderColumn>
+          <TableHeaderColumn style={{color:'white'}}>Date Reserved Until</TableHeaderColumn>
+          <TableHeaderColumn style={{color:'black'}}>Status</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody stripedRows={true} displayRowCheckbox={false}>

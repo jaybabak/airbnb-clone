@@ -53870,23 +53870,23 @@ var Booking = function Booking(_ref) {
       { selectable: false },
       _react2.default.createElement(
         _Table.TableHeader,
-        { adjustForCheckbox: false },
+        { adjustForCheckbox: false, displaySelectAll: false },
         _react2.default.createElement(
           _Table.TableRow,
-          null,
+          { style: { backgroundColor: '#ea2e3d' } },
           _react2.default.createElement(
             _Table.TableHeaderColumn,
-            null,
+            { style: { color: 'white' } },
             'Date Reserved From'
           ),
           _react2.default.createElement(
             _Table.TableHeaderColumn,
-            null,
+            { style: { color: 'white' } },
             'Date Reserved Until'
           ),
           _react2.default.createElement(
             _Table.TableHeaderColumn,
-            null,
+            { style: { color: 'black' } },
             'Status'
           )
         )
