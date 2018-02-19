@@ -17,7 +17,7 @@ class BookingPage extends React.Component {
       successMsg: '',
       errors: {},
       data: {},
-      bookingData: {}
+      bookingData: []
     };
 
     this.changeUser = this.changeUser.bind(this);
@@ -61,7 +61,7 @@ class BookingPage extends React.Component {
         if (xhrGetPost.status === 200) {
           const ab = xhrGetPost.response.postData[0];
           this.setState({data: ab});
-          console.log(this.state.data);
+          // console.log(this.state.data);
         }
       });
       xhrGetPost.send();
@@ -76,7 +76,8 @@ class BookingPage extends React.Component {
         if (xhrGetBookings.status === 200) {
           const bc = xhrGetBookings.response.bookingData;
           this.setState({bookingData: bc});
-          console.log(this.state.bookingData);
+          // console.log(this.state.bookingData);
+
         }
       });
       xhrGetBookings.send();
@@ -162,13 +163,13 @@ class BookingPage extends React.Component {
   }
 
   onSelect(event, date) {
-    console.log(event + date);
+    // console.log(event + date);
     const xd = this.formatDate(date);
     const user2 = this.state.user;
     // console.log(user2);
 
     user2['from'] = xd;
-    console.log(user2);
+    // console.log(user2);
 
     this.setState({user2});
   }
@@ -180,7 +181,7 @@ class BookingPage extends React.Component {
     // console.log(user3);
 
     user3['to'] = xd2;
-    console.log(user3);
+    // console.log(user3);
 
     this.setState({user3});
   }
@@ -189,8 +190,19 @@ class BookingPage extends React.Component {
    * Render the component.
    */
   render() {
+
+    // const bookingsArray = this.state.bookingData.map((arrs2) => {
+    //
+    //   // console.log(arrs2);
+    //   // <div>{arrs2._id}</div>
+    //   return <div style={{color:'white'}} key={arrs2._id}><span>From: {arrs2.from}</span><span> To: {arrs2.to}</span></div>
+    //
+    //
+    // });
+
     return (<div>
-      <Booking onSubmit={this.bookPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} pidData={this.state.data} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} today={this.state.todaysDate}/>
+      <Booking onSubmit={this.bookPosts} onChange={this.changeUser} onSelect={this.onSelect} onSelectTo={this.onSelectTo} pidData={this.state.data} user={this.state.user} errors={this.state.errors} success={this.state.successMsg} dateHelper={this.formatDate} bookings={this.state.bookingData}/>
+      {/* <div>{bookingsArray}</div> */}
     </div>);
   }
 }
