@@ -253,11 +253,19 @@ router.get('/bookings/:id/', (req, res) => {
       if (err) {
         return err
       }
-      console.log(resItems);
-      res.status(200).json({message: "Success", bookingData: resItems});
+
+      if(resItems === undefined || resItems.length == 0){
+        // console.log(resItems);
+        console.log('Something');
+        res.status(200).json({message: "Success", bookingData: false});
+      }else{
+        console.log('Nothing');
+        // console.log(resItems);
+        res.status(200).json({message: "Success", bookingData: resItems});
+      }
     });
 
-    console.log(resDates);
+    // console.log(resDates);
 
 
   } else {

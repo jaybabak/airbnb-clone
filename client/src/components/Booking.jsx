@@ -27,34 +27,6 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
 
 <CardText style={{ fontSize: '16px', color: 'black' }}><strong>{user.name}</strong>, you are very close to completing your reservation.</CardText>
 
-<CardText style={{ fontSize: '16px', color: 'red' }}><strong>Bookings:</strong> These dates have already been reserved.</CardText>
-
-<h1>Reservations</h1>
-
-<Table selectable={false}>
-  <TableHeader adjustForCheckbox={false}>
-    <TableRow>
-      <TableHeaderColumn>Date Reserved From</TableHeaderColumn>
-      <TableHeaderColumn>Date Reserved Until</TableHeaderColumn>
-      <TableHeaderColumn>Status</TableHeaderColumn>
-    </TableRow>
-  </TableHeader>
-  <TableBody stripedRows={true} displayRowCheckbox={false}>
-  {bookings.map((arrs2) =>
-
-    // console.log(arrs2);
-    // <div>{arrs2._id}</div>
-    // <div style={{color:'grey'}} key={arrs2._id}><span>From: {arrs2.from}</span><span> To: {arrs2.to}</span></div>
-
-    <TableRow key={arrs2._id}>
-      <TableRowColumn>{arrs2.from}</TableRowColumn>
-      <TableRowColumn>{arrs2.to}</TableRowColumn>
-      <TableRowColumn>Confirmed</TableRowColumn>
-    </TableRow>
-
-  )}
-  </TableBody>
-</Table>
 
     {/* IMPLEMENTED GOOGLE MAPS LIBRARY INTEGRATION */}
     <MapContainer
@@ -81,6 +53,36 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
       </div>
 
     </form>
+
+    <h1>Reservations For This Listing</h1>
+
+    <CardText style={{ fontSize: '16px', color: 'lightgrey' }}>See below for dates that have been reserved.</CardText>
+
+    <Table selectable={false}>
+      <TableHeader adjustForCheckbox={false}>
+        <TableRow>
+          <TableHeaderColumn>Date Reserved From</TableHeaderColumn>
+          <TableHeaderColumn>Date Reserved Until</TableHeaderColumn>
+          <TableHeaderColumn>Status</TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody stripedRows={true} displayRowCheckbox={false}>
+
+      {bookings ? bookings.map((arrs2) =>
+
+        // console.log(arrs2);
+        // <div>{arrs2._id}</div>
+        // <div style={{color:'grey'}} key={arrs2._id}><span>From: {arrs2.from}</span><span> To: {arrs2.to}</span></div>
+
+        <TableRow key={arrs2._id}>
+          <TableRowColumn>{arrs2.from}</TableRowColumn>
+          <TableRowColumn>{arrs2.to}</TableRowColumn>
+          <TableRowColumn>Confirmed</TableRowColumn>
+        </TableRow>
+
+      ) : <TableRow><TableRowColumn>No reservations found!</TableRowColumn></TableRow>}
+      </TableBody>
+    </Table>
 
   </Card>
 

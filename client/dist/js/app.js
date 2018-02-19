@@ -53813,80 +53813,6 @@ var Booking = function Booking(_ref) {
       ),
       ', you are very close to completing your reservation.'
     ),
-    _react2.default.createElement(
-      _Card.CardText,
-      { style: { fontSize: '16px', color: 'red' } },
-      _react2.default.createElement(
-        'strong',
-        null,
-        'Bookings:'
-      ),
-      ' These dates have already been reserved.'
-    ),
-    _react2.default.createElement(
-      'h1',
-      null,
-      'Reservations'
-    ),
-    _react2.default.createElement(
-      _Table.Table,
-      { selectable: false },
-      _react2.default.createElement(
-        _Table.TableHeader,
-        { adjustForCheckbox: false },
-        _react2.default.createElement(
-          _Table.TableRow,
-          null,
-          _react2.default.createElement(
-            _Table.TableHeaderColumn,
-            null,
-            'Date Reserved From'
-          ),
-          _react2.default.createElement(
-            _Table.TableHeaderColumn,
-            null,
-            'Date Reserved Until'
-          ),
-          _react2.default.createElement(
-            _Table.TableHeaderColumn,
-            null,
-            'Status'
-          )
-        )
-      ),
-      _react2.default.createElement(
-        _Table.TableBody,
-        { stripedRows: true, displayRowCheckbox: false },
-        bookings.map(function (arrs2) {
-          return (
-
-            // console.log(arrs2);
-            // <div>{arrs2._id}</div>
-            // <div style={{color:'grey'}} key={arrs2._id}><span>From: {arrs2.from}</span><span> To: {arrs2.to}</span></div>
-
-            _react2.default.createElement(
-              _Table.TableRow,
-              { key: arrs2._id },
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                arrs2.from
-              ),
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                arrs2.to
-              ),
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                'Confirmed'
-              )
-            )
-          );
-        })
-      )
-    ),
     _react2.default.createElement(_Map2.default, {
       google: window.google, styles: { width: '100%', position: 'inherit' }
     }),
@@ -53927,6 +53853,83 @@ var Booking = function Booking(_ref) {
         'div',
         { className: 'button-line' },
         _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Book It!', primary: true })
+      )
+    ),
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Reservations For This Listing'
+    ),
+    _react2.default.createElement(
+      _Card.CardText,
+      { style: { fontSize: '16px', color: 'lightgrey' } },
+      'See below for dates that have been reserved.'
+    ),
+    _react2.default.createElement(
+      _Table.Table,
+      { selectable: false },
+      _react2.default.createElement(
+        _Table.TableHeader,
+        { adjustForCheckbox: false },
+        _react2.default.createElement(
+          _Table.TableRow,
+          null,
+          _react2.default.createElement(
+            _Table.TableHeaderColumn,
+            null,
+            'Date Reserved From'
+          ),
+          _react2.default.createElement(
+            _Table.TableHeaderColumn,
+            null,
+            'Date Reserved Until'
+          ),
+          _react2.default.createElement(
+            _Table.TableHeaderColumn,
+            null,
+            'Status'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        _Table.TableBody,
+        { stripedRows: true, displayRowCheckbox: false },
+        bookings ? bookings.map(function (arrs2) {
+          return (
+
+            // console.log(arrs2);
+            // <div>{arrs2._id}</div>
+            // <div style={{color:'grey'}} key={arrs2._id}><span>From: {arrs2.from}</span><span> To: {arrs2.to}</span></div>
+
+            _react2.default.createElement(
+              _Table.TableRow,
+              { key: arrs2._id },
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                arrs2.from
+              ),
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                arrs2.to
+              ),
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                'Confirmed'
+              )
+            )
+          );
+        }) : _react2.default.createElement(
+          _Table.TableRow,
+          null,
+          _react2.default.createElement(
+            _Table.TableRowColumn,
+            null,
+            'No reservations found!'
+          )
+        )
       )
     )
   );
