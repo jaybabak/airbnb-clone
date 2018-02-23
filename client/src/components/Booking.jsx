@@ -33,27 +33,6 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
       google={window.google} styles={{width:'100%', position: 'inherit'}}
     />
 
-    <form action="/" onSubmit={onSubmit}>
-      <h2 style={{ color: 'cornflowerblue' }} className="card-heading">1/1: Book Your Stay for <strong style={{ color: 'black', textDecoration: 'underline'}}>{pidData.city}</strong></h2>
-
-      <CardText style={{ fontSize: '16px', color: 'green' }}><strong>{success.message}</strong></CardText>
-
-      <div className="field-line">
-
-        <div className="field-line">
-          How long will you be booking your stay
-        </div>
-        <DatePicker hintText="Reserve From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to} mode="landscape" autoOk={true}/>
-        <DatePicker hintText="Reserve To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from} mode="landscape" autoOk={true}/>
-
-      </div>
-
-      <div className="button-line">
-        <RaisedButton type="submit" label="Book It!" primary />
-      </div>
-
-    </form>
-
     <h1>Reservations For This Listing</h1>
 
     <CardText style={{ fontSize: '16px', color: 'lightgrey' }}>See below for dates that have been reserved.</CardText>
@@ -83,6 +62,31 @@ const Booking = ({ pidData, user, onChange, onSubmit, payload, errors, success, 
       ) : <TableRow><TableRowColumn>No reservations found!</TableRowColumn></TableRow>}
       </TableBody>
     </Table>
+
+    <form action="/" onSubmit={onSubmit}>
+      <h1 style={{ color: 'black' }} className="card-heading">0/1: Book Your Stay for <strong style={{ color: 'cornflowerblue', textDecoration: 'underline'}}>{pidData.city}</strong></h1>
+
+      <CardText style={{ fontSize: '16px', color: 'green' }}><strong>{success.message}</strong></CardText>
+
+      <div className="field-line">
+
+        <div className="field-line">
+          How long will you be booking your stay
+        </div>
+        <DatePicker hintText="Reserve From" name="from" container="inline" formatDate={dateHelper} onChange={onSelect} errorText={errors.to} mode="landscape" autoOk={true}/>
+        <DatePicker hintText="Reserve To" name="to" container="inline" formatDate={dateHelper} onChange={onSelectTo} errorText={errors.from} mode="landscape" autoOk={true}/>
+
+      </div>
+
+      <div className="button-line">
+        <RaisedButton type="submit" label="Book It!" primary />
+      </div>
+
+    </form>
+
+
+
+
 
   </Card>
 

@@ -195,7 +195,7 @@ router.post('/book/:id/', (req, res) => {
 
   var upid = req.body.pid;
 
-  if(req.body.from != 'undefined'){
+  if(req.body.from != 'undefined' || req.body.to != 'undefined'){
 
     console.log('Successful booking');
     console.log(upid);
@@ -204,8 +204,8 @@ router.post('/book/:id/', (req, res) => {
 
   }else{
     console.log('Empty dates recieved');
-        console.log(upid);
-    res.status(400).json({success: false, message: 'Must enter the "From" date and "To" date to book.'});
+    // console.log(upid);
+    res.status(200).json({success: false, message: 'Must enter the "From" date and "To" date to book.'});
   }
 });
 

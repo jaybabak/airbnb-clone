@@ -134,11 +134,9 @@ class BookingPage extends React.Component {
     xhr2.responseType = 'json';
     xhr2.addEventListener('load', () => {
       if (xhr2.status === 200) {
-        // this.setState({
-        //   data: xhr2.response.postData[0],
-        //   from: xhr2.response.postData[0].available.from,
-        //   to: xhr2.response.postData[0].available.to
-        // });
+        this.setState({
+          successMsg: xhr2.response
+        });
         console.log(xhr2.response)
         // resolve(this.state.user._id);
       }

@@ -18015,7 +18015,7 @@ var HomePage = function (_React$Component) {
         _react2.default.createElement(
           _Card.Card,
           { className: 'container' },
-          _react2.default.createElement(_Card.CardTitle, { title: 'React Application', subtitle: 'This is the home page.' }),
+          _react2.default.createElement(_Card.CardTitle, { title: 'Rent Out or Rent Exotics!', subtitle: 'Sign up or Sign in!' }),
           _Auth2.default.isUserAuthenticated() ? _react2.default.createElement(
             _Card.CardText,
             { style: { fontSize: '16px', color: 'green' } },
@@ -53817,45 +53817,6 @@ var Booking = function Booking(_ref) {
       google: window.google, styles: { width: '100%', position: 'inherit' }
     }),
     _react2.default.createElement(
-      'form',
-      { action: '/', onSubmit: onSubmit },
-      _react2.default.createElement(
-        'h2',
-        { style: { color: 'cornflowerblue' }, className: 'card-heading' },
-        '1/1: Book Your Stay for ',
-        _react2.default.createElement(
-          'strong',
-          { style: { color: 'black', textDecoration: 'underline' } },
-          pidData.city
-        )
-      ),
-      _react2.default.createElement(
-        _Card.CardText,
-        { style: { fontSize: '16px', color: 'green' } },
-        _react2.default.createElement(
-          'strong',
-          null,
-          success.message
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'field-line' },
-        _react2.default.createElement(
-          'div',
-          { className: 'field-line' },
-          'How long will you be booking your stay'
-        ),
-        _react2.default.createElement(_DatePicker2.default, { hintText: 'Reserve From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to, mode: 'landscape', autoOk: true }),
-        _react2.default.createElement(_DatePicker2.default, { hintText: 'Reserve To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from, mode: 'landscape', autoOk: true })
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'button-line' },
-        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Book It!', primary: true })
-      )
-    ),
-    _react2.default.createElement(
       'h1',
       null,
       'Reservations For This Listing'
@@ -53930,6 +53891,45 @@ var Booking = function Booking(_ref) {
             'No reservations found!'
           )
         )
+      )
+    ),
+    _react2.default.createElement(
+      'form',
+      { action: '/', onSubmit: onSubmit },
+      _react2.default.createElement(
+        'h1',
+        { style: { color: 'black' }, className: 'card-heading' },
+        '0/1: Book Your Stay for ',
+        _react2.default.createElement(
+          'strong',
+          { style: { color: 'cornflowerblue', textDecoration: 'underline' } },
+          pidData.city
+        )
+      ),
+      _react2.default.createElement(
+        _Card.CardText,
+        { style: { fontSize: '16px', color: 'green' } },
+        _react2.default.createElement(
+          'strong',
+          null,
+          success.message
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'field-line' },
+          'How long will you be booking your stay'
+        ),
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Reserve From', name: 'from', container: 'inline', formatDate: dateHelper, onChange: onSelect, errorText: errors.to, mode: 'landscape', autoOk: true }),
+        _react2.default.createElement(_DatePicker2.default, { hintText: 'Reserve To', name: 'to', container: 'inline', formatDate: dateHelper, onChange: onSelectTo, errorText: errors.from, mode: 'landscape', autoOk: true })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'button-line' },
+        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Book It!', primary: true })
       )
     )
   );
@@ -54102,6 +54102,8 @@ var BookingPage = function (_React$Component) {
   }, {
     key: 'bookPosts',
     value: function bookPosts(event) {
+      var _this3 = this;
+
       // prevent default action. in this case, action is the form submission event
       event.preventDefault();
 
@@ -54124,11 +54126,9 @@ var BookingPage = function (_React$Component) {
       xhr2.responseType = 'json';
       xhr2.addEventListener('load', function () {
         if (xhr2.status === 200) {
-          // this.setState({
-          //   data: xhr2.response.postData[0],
-          //   from: xhr2.response.postData[0].available.from,
-          //   to: xhr2.response.postData[0].available.to
-          // });
+          _this3.setState({
+            successMsg: xhr2.response
+          });
           console.log(xhr2.response);
           // resolve(this.state.user._id);
         }
