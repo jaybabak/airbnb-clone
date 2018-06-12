@@ -6,10 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/react-c
 * Technologies used:
 *** Backend: Node.js
 *** Front-end: React
-*** Libraries/Dependencies: 
 
-*
-axios
+
+* Libraries/Dependencies: axios
 bcryptjs
 body-parser
 dateformat
