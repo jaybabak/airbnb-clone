@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/react-c
 
 * A clone of the airbnb website/app API and front-end
 * Technologies used:
-*** Backend: Node.js
-*** Front-end: React
+*** Backend: Node.js, Express, MongoDB, Passport.js (for Authentication), JWBT
+*** Front-end: React, React-router (Navigation)
 
 
 * Libraries/Dependencies: axios
