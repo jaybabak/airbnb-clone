@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Posty = mongoose.model('Posty');
 const Bookings = mongoose.model('Bookings');
 const router = new express.Router();
+const dateFormat = require('dateformat');
 
 //---Form Validation for Add Post
 function validateAddPostForm(formData) {
@@ -226,6 +227,7 @@ router.get('/book/:id/', (req, res) => {
       if (err) {
         return err
       }
+
       res.status(200).json({message: "Success Item", postData: item});
     });
 
@@ -256,11 +258,28 @@ router.get('/bookings/:id/', (req, res) => {
 
       if(resItems === undefined || resItems.length == 0){
         // console.log(resItems);
-        console.log('Something');
+        console.log('No reservations!');
         res.status(200).json({message: "Success", bookingData: false});
       }else{
         console.log('Nothing');
-        // console.log(resItems);
+        console.log(resItems);
+
+
+        var reformattedArray = [];
+
+        function formatDateLong(v){
+          //LEFT OFF HERE FORMAT DATE TO SHOW PROPER DATE USING BELOW CODEE
+          // dateFormat(resItems.from, 'mmmm dd, yyyy');
+          // dateFormat(obj.from, 'mmmm dd, yyyy'));
+          // console.log(resItems);
+          // console.log(reformattedArray);
+
+          //TRIED .MAP ALRADY :(
+
+        }
+
+        formatDateLong(resItems);
+
         res.status(200).json({message: "Success", bookingData: resItems});
       }
     });
